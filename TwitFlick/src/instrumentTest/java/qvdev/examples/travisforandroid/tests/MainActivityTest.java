@@ -24,7 +24,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainView>
     }
 
     public void testActivityCreation() {
-        assertNull("Activity is null, check creating of activity", mainActivity);
+        assertNotNull("Activity is null, check creating of activity", mainActivity);
     }
 
 }
