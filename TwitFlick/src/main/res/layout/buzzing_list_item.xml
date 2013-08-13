@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/background_with_shadow"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:layout_margin="20dp"
+                tools:context=".MainActivity$DummySectionFragment">
+
+    <ImageView
+            android:id="@+id/buzzingPoster"
+            android:paddingBottom="2dp"
+            android:paddingRight="2dp"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_launcher"
+            android:cropToPadding="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="left"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/playTrailerButton"
+            android:src="@android:drawable/ic_media_play"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
+
+    <RatingBar
+            android:id="@+id/buzzingRating"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/buzzingPoster"
+            style="?android:attr/ratingBarStyleSmall"
+            />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Title"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/buzzingPoster"
+            android:id="@+id/buzzingName"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal|top"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Summary"
+            android:layout_toRightOf="@id/buzzingPoster"
+            android:id="@+id/buzzingSummary"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/buzzingName"
+            android:layout_above="@id/playTrailerButton"
+            android:layout_gravity="center_horizontal|top"/>
+
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tweetsTodayButton"
+            android:src="@android:drawable/ic_menu_day"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/playTrailerButton"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tweetsTotalButton"
+            android:src="@android:drawable/ic_menu_more"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/tweetsTodayButton"/>
+
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemInformation"
+            android:src="@android:drawable/ic_menu_info_details"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/tweetsTotalButton"/>
+
+</RelativeLayout>

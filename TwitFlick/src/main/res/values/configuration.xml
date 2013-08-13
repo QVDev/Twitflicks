@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General twitflick configuration -->
+    <string name="base_url">"http://www.twitflicks.com/"</string>
+    <string name="api_url">"api/"</string>
+    <string name="buzzing_url">"buzzing.json?"</string>
+
+    <!-- url parameters -->
+    <string name="buzzing_retrieve_count">"count="</string>
+    <string name="buzzing_retrieve_limit">"50"</string>
+
+</resources>
