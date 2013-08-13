@@ -47,3 +47,4 @@ before_install:
 
 script:
   - gradle connectedInstrumentTest
+  - gradle uploadDeployGate
