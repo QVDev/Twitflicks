@@ -1,15 +1,12 @@
 buildscript {
     repositories {
         maven { url 'http://repo1.maven.org/maven2' }
-        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.4'
-        classpath 'com.deploygate:gradle:0.2'
     }
 }
 apply plugin: 'android'
-apply plugin: 'deploygate'
 
 dependencies {
     compile files('libs/android-support-v4.jar')
@@ -25,11 +22,4 @@ android {
         minSdkVersion 11
         targetSdkVersion 17
     }
-}
-
-deploygate {
-    userName "QVDev"
-    apkPath "${project.buildDir}/apk/TwitFlick-debug-unaligned.apk"
-    token "565d7404cf3b53fa7bb02d4a2ef6fbf1049b4089"
-    message "New Version release"
 }
