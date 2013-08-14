@@ -9,7 +9,7 @@ Building
 
 DeployGate
 ===============
-https://dply.me/y6dkrt
+Help us testing after every successfull build via DeployGate https://dply.me/y6dkrt
 
 Screenshots
 ===============
