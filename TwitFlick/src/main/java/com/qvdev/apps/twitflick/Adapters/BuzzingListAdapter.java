@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
 import com.qvdev.apps.twitflick.R;
+import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
 import com.squareup.picasso.Picasso;
 
 public class BuzzingListAdapter extends BaseAdapter {
@@ -20,6 +21,7 @@ public class BuzzingListAdapter extends BaseAdapter {
     private final BuzzingModel mBuzzingModel;
     private Context mContext;
     private int mResourceLayoutId;
+    private onBuzzingItemClickedListener mListener;
 
     /**
      * Viewholder used for smooth scrolling
@@ -69,6 +71,7 @@ public class BuzzingListAdapter extends BaseAdapter {
             viewHolder.itemSummary = (TextView) v.findViewById(R.id.buzzingSummary);
             viewHolder.itemInfoButton = (ImageButton) v.findViewById(R.id.itemInformation);
             viewHolder.playTrailerButton = (ImageButton) v.findViewById(R.id.playTrailerButton);
+            setButtonOnClickListener(viewHolder.playTrailerButton);
             viewHolder.tweetsTodayButton = (ImageButton) v.findViewById(R.id.tweetsTodayButton);
             viewHolder.tweetsTotalButton = (ImageButton) v.findViewById(R.id.tweetsTotalButton);
             v.setTag(viewHolder);
@@ -93,6 +96,27 @@ public class BuzzingListAdapter extends BaseAdapter {
         return v;
     }
 
+    private void setButtonOnClickListener(final ImageButton button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    switch (button.getId()) {
+                        case R.id.playTrailerButton:
+                            mListener.onTrailerClicked(button.getTag().toString());
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+            }
+        });
+    }
+
+    public void setOnBuzzingItemClicked(onBuzzingItemClickedListener listener) {
+        mListener = listener;
+    }
 
     public int getCount() {
         return mBuzzingModel.getBuzzing().size();

@@ -1,11 +1,15 @@
 package com.qvdev.apps.twitflick.Presenter;
 
+import android.content.Intent;
+import android.net.Uri;
+
 import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.View.BuzzingView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
 import com.qvdev.apps.twitflick.com.qvdev.apps.twitflick.network.NetworkHelper;
+import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,7 +18,7 @@ import java.util.List;
 /**
  * Created by dirkwilmer on 7/29/13.
  */
-public class BuzzingPresenter {
+public class BuzzingPresenter implements onBuzzingItemClickedListener {
 
     private BuzzingView mBuzzingView;
     private BuzzingModel mBuzzingModel;
@@ -25,15 +29,19 @@ public class BuzzingPresenter {
         mBuzzingModel = new BuzzingModel();
 
         init();
+        getBuzzing();
     }
 
     private void init() {
         mBuzzingListAdapter = new BuzzingListAdapter(mBuzzingView.getActivity(), R.layout.buzzing_list_item, mBuzzingModel);
+        mBuzzingListAdapter.setOnBuzzingItemClicked(this);
         mBuzzingView.setAdapter(mBuzzingListAdapter);
+
     }
 
 
-    public void getBuzzing() {
+    private void getBuzzing() {
+        //TODO::Think of a general Twitlfick api
         NetworkHelper networkHelper = new NetworkHelper(this);
         URL url = null;
         try {
@@ -48,5 +56,12 @@ public class BuzzingPresenter {
         mBuzzingModel.getBuzzing().clear();
         mBuzzingModel.getBuzzing().addAll(result);
         mBuzzingListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onTrailerClicked(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.putExtra("force_fullscreen", true);
+        mBuzzingView.startActivity(intent);
     }
 }

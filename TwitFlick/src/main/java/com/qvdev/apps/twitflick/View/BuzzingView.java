@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
 import com.qvdev.apps.twitflick.Presenter.BuzzingPresenter;
@@ -24,13 +26,16 @@ public class BuzzingView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_main_buzzing, container, false);
         mDummyListView = (ListView) rootView.findViewById(R.id.listViewBuzzing);
-        mBuzzingPresenter = new BuzzingPresenter(this);
-        mBuzzingPresenter.getBuzzing();
         return rootView;
     }
 
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mBuzzingPresenter = new BuzzingPresenter(this);
+    }
 
     public void setAdapter(BuzzingListAdapter adapter) {
         mDummyListView.setAdapter(adapter);

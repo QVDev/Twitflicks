@@ -29,11 +29,12 @@ import java.util.List;
  */
 public class NetworkHelper extends AsyncTask<URL, Integer, List<Buzzing>> {
 
-    //TODO:Maybe implement VOLLEY?
+    //TODO::Maybe implement VOLLEY?
     //http://blog.bignerdranch.com/3177-solving-the-android-image-loading-problem-volley-vs-picasso/
     private Gson mGSon = new Gson();
     private BuzzingPresenter mBuzzingPresenter = null;
 
+    //TODO::Create a listener
     public NetworkHelper(BuzzingPresenter context) {
         mBuzzingPresenter = context;
     }
