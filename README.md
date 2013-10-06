@@ -16,6 +16,7 @@ Screenshots
 ![Alt text](/screens/device-2013-08-14-002344.png "Movies buzzing view")
 ![Alt text](/screens/device-2013-09-25-212351.png "Choose application")
 ![Alt text](/screens/device-2013-09-25-212432.png "Trailer playback")
+![Alt text](/screens/device-2013-10-06-163352.png "Share like / hate")
 
 
 
