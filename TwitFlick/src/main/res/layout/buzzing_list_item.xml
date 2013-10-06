@@ -1,43 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/background_with_shadow"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="8dp"
-                android:layout_margin="20dp"
                 tools:context=".MainActivity$DummySectionFragment">
 
-    <ImageView
-            android:id="@+id/buzzingPoster"
-            android:paddingBottom="2dp"
-            android:paddingRight="2dp"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:src="@drawable/ic_launcher"
-            android:cropToPadding="true"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="left"/>
-
     <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/playTrailerButton"
-            android:src="@android:drawable/ic_media_play"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"/>
-
-    <RatingBar
-            android:id="@+id/buzzingRating"
+            android:id="@+id/buzzingPoster"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@id/buzzingPoster"
-            style="?android:attr/ratingBarStyleSmall"
-            />
+            android:layout_height="100dp"
+            android:src="@drawable/default_poster"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            android:background="@android:color/transparent"
+            android:layout_gravity="left"/>
 
     <TextView
             android:layout_width="match_parent"
@@ -45,6 +21,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Title"
             android:textStyle="bold"
+            android:textColor="@android:color/black"
             android:layout_toRightOf="@id/buzzingPoster"
             android:id="@+id/buzzingName"
             android:layout_alignParentTop="true"
@@ -54,38 +31,58 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#838793"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Summary"
             android:layout_toRightOf="@id/buzzingPoster"
             android:id="@+id/buzzingSummary"
             android:layout_alignParentRight="true"
+            android:maxLines="3"
+            android:ellipsize="end"
             android:layout_below="@id/buzzingName"
             android:layout_above="@id/playTrailerButton"
             android:layout_gravity="center_horizontal|top"/>
 
-
-    <ImageButton
+    <RatingBar
+            android:id="@+id/buzzingRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tweetLikeButton"
-            android:src="@android:drawable/ic_menu_day"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@id/playTrailerButton"/>
+            android:clickable="false"
+            android:stepSize="0.1"
+            android:numStars="5"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            style="?android:attr/ratingBarStyleSmall"
+            />
 
-    <ImageButton
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tweetHateButton"
-            android:src="@android:drawable/ic_menu_more"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@id/tweetLikeButton"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/tweets_total"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:id="@+id/buzzingTotal"
+            android:layout_alignBottom="@id/buzzingPoster"
+            android:layout_toRightOf="@id/buzzingPoster"
+            android:background="#33b5e5"/>
 
-    <ImageButton
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/itemInformation"
-            android:src="@android:drawable/ic_menu_info_details"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@id/tweetHateButton"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/tweets_today"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:id="@+id/buzzingToday"
+            android:layout_alignBottom="@id/buzzingPoster"
+            android:layout_alignParentRight="true"
+            android:background="#FA7014"/>
+
+
+    <include
+            layout="@layout/buzzing_item_actions"
+            android:visibility="gone"/>
 
 </RelativeLayout>

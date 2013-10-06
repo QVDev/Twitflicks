@@ -12,7 +12,6 @@
             android:id="@+id/listViewBuzzing"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:dividerHeight="10dp"
             android:divider="@android:color/white"/>
 
 
