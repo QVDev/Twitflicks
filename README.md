@@ -17,6 +17,7 @@ Screenshots
 ![Alt text](/screens/device-2013-09-25-212351.png "Choose application")
 ![Alt text](/screens/device-2013-09-25-212432.png "Trailer playback")
 ![Alt text](/screens/device-2013-10-06-163352.png "Share like / hate")
+![Alt text](/screens/device-2013-10-06-195938.png "New design implemented")
 
 
 
