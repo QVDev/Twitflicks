@@ -6,4 +6,8 @@ package com.qvdev.apps.twitflick.listeners;
 public interface onBuzzingItemClickedListener {
 
     public void onTrailerClicked(String url);
+
+    public void onLikeClicked(int position);
+
+    public void onHateClicked(int position);
 }

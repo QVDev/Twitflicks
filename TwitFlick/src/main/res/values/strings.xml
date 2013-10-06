@@ -7,4 +7,12 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
 
+    <string name="share_like">I love %1$s. What an amazing flick! #twitflicks #movie
+        http://www.twitflicks.com/movie/%2$s via @drahtwerk
+    </string>
+    <string name="share_hate">I hate %1$s! What a disappointing movie. #twitflicks #movie
+        http://www.twitflicks.com/movie/%2$s via @drahtwerk
+    </string>
+    <string name="send_to">Share</string>
+
 </resources>

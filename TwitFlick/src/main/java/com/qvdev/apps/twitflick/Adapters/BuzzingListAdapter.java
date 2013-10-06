@@ -34,8 +34,8 @@ public class BuzzingListAdapter extends BaseAdapter {
         public RatingBar itemRating;
         public ImageButton itemInfoButton;
         public ImageButton playTrailerButton;
-        public ImageButton tweetsTodayButton;
-        public ImageButton tweetsTotalButton;
+        public ImageButton tweetLikeButton;
+        public ImageButton tweetHateButton;
     }
 
 
@@ -64,16 +64,24 @@ public class BuzzingListAdapter extends BaseAdapter {
             v = li.inflate(mResourceLayoutId, parent, false);
 
             viewHolder = new BuzzingViewHolder();
+
             viewHolder.itemName = (TextView) v.findViewById(R.id.buzzingName);
             viewHolder.itemPoster = (ImageView) v.findViewById(R.id.buzzingPoster);
-            viewHolder.itemRating = (RatingBar) v.findViewById(R.id.buzzingRating);
-            viewHolder.itemRating.setMax(5);
             viewHolder.itemSummary = (TextView) v.findViewById(R.id.buzzingSummary);
             viewHolder.itemInfoButton = (ImageButton) v.findViewById(R.id.itemInformation);
+
+            viewHolder.itemRating = (RatingBar) v.findViewById(R.id.buzzingRating);
+            viewHolder.itemRating.setMax(5);
+
             viewHolder.playTrailerButton = (ImageButton) v.findViewById(R.id.playTrailerButton);
             setButtonOnClickListener(viewHolder.playTrailerButton);
-            viewHolder.tweetsTodayButton = (ImageButton) v.findViewById(R.id.tweetsTodayButton);
-            viewHolder.tweetsTotalButton = (ImageButton) v.findViewById(R.id.tweetsTotalButton);
+
+            viewHolder.tweetLikeButton = (ImageButton) v.findViewById(R.id.tweetLikeButton);
+            setButtonOnClickListener(viewHolder.tweetLikeButton);
+
+            viewHolder.tweetHateButton = (ImageButton) v.findViewById(R.id.tweetHateButton);
+            setButtonOnClickListener(viewHolder.tweetHateButton);
+
             v.setTag(viewHolder);
 
         } else {
@@ -81,8 +89,8 @@ public class BuzzingListAdapter extends BaseAdapter {
         }
 
         viewHolder.itemName.setText(mBuzzingModel.getBuzzing().get(position).getName());
-
         viewHolder.itemRating.setRating(mBuzzingModel.getBuzzing().get(position).getRating());
+
         viewHolder.itemPoster.setImageResource(R.drawable.ic_launcher);
         String imageUrl = "" + v.getContext().getString(R.string.base_url) + mBuzzingModel.getBuzzing().get(position).getPosterUrl();
         Picasso.with(v.getContext()).load(imageUrl).into(viewHolder.itemPoster);
@@ -90,8 +98,8 @@ public class BuzzingListAdapter extends BaseAdapter {
         viewHolder.itemSummary.setText(mBuzzingModel.getBuzzing().get(position).getShortSynposis());
         viewHolder.itemInfoButton.setTag(mBuzzingModel.getBuzzing().get(position).getID());
         viewHolder.playTrailerButton.setTag(mBuzzingModel.getBuzzing().get(position).getTrailer());
-        viewHolder.tweetsTodayButton.setTag(mBuzzingModel.getBuzzing().get(position).getTweetsToday());
-        viewHolder.tweetsTotalButton.setTag(mBuzzingModel.getBuzzing().get(position).getTweets());
+        viewHolder.tweetLikeButton.setTag(position);
+        viewHolder.tweetHateButton.setTag(position);
 
         return v;
     }
@@ -104,6 +112,12 @@ public class BuzzingListAdapter extends BaseAdapter {
                     switch (button.getId()) {
                         case R.id.playTrailerButton:
                             mListener.onTrailerClicked(button.getTag().toString());
+                            break;
+                        case R.id.tweetLikeButton:
+                            mListener.onLikeClicked((Integer) button.getTag());
+                            break;
+                        case R.id.tweetHateButton:
+                            mListener.onHateClicked((Integer) button.getTag());
                             break;
                         default:
                             break;

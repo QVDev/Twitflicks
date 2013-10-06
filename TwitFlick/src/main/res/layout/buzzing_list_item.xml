@@ -67,7 +67,7 @@
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tweetsTodayButton"
+            android:id="@+id/tweetLikeButton"
             android:src="@android:drawable/ic_menu_day"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@id/playTrailerButton"/>
@@ -75,10 +75,10 @@
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tweetsTotalButton"
+            android:id="@+id/tweetHateButton"
             android:src="@android:drawable/ic_menu_more"
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@id/tweetsTodayButton"/>
+            android:layout_toLeftOf="@id/tweetLikeButton"/>
 
     <ImageButton
             android:layout_width="wrap_content"
@@ -86,6 +86,6 @@
             android:id="@+id/itemInformation"
             android:src="@android:drawable/ic_menu_info_details"
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@id/tweetsTotalButton"/>
+            android:layout_toLeftOf="@id/tweetHateButton"/>
 
 </RelativeLayout>

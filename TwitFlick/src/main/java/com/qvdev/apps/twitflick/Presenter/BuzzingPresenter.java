@@ -20,6 +20,8 @@ import java.util.List;
  */
 public class BuzzingPresenter implements onBuzzingItemClickedListener {
 
+    private static final String FORCE_FULLSCREEN = "force_fullscreen";
+
     private BuzzingView mBuzzingView;
     private BuzzingModel mBuzzingModel;
     private BuzzingListAdapter mBuzzingListAdapter;
@@ -61,7 +63,29 @@ public class BuzzingPresenter implements onBuzzingItemClickedListener {
     @Override
     public void onTrailerClicked(String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        intent.putExtra("force_fullscreen", true);
+        intent.putExtra(FORCE_FULLSCREEN, true);
         mBuzzingView.startActivity(intent);
+    }
+
+    @Override
+    public void onLikeClicked(int position) {
+        Buzzing buzzing = mBuzzingModel.getBuzzing().get(position);
+        String likeText = mBuzzingView.getString(R.string.share_like, buzzing.getName(), (int) buzzing.getID());
+        share(likeText);
+    }
+
+    @Override
+    public void onHateClicked(int position) {
+        Buzzing buzzing = mBuzzingModel.getBuzzing().get(position);
+        String hateText = mBuzzingView.getString(R.string.share_hate, buzzing.getName(), (int) buzzing.getID());
+        share(hateText);
+    }
+
+    private void share(String shareText) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        sendIntent.setType("text/plain");
+        mBuzzingView.startActivity(Intent.createChooser(sendIntent, mBuzzingView.getResources().getText(R.string.send_to)));
     }
 }
