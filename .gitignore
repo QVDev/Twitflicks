@@ -21,3 +21,6 @@ local.properties
 # Eclipse project files
 .classpath
 .project
+
+# MAC thumb gen
+.DS_Store
