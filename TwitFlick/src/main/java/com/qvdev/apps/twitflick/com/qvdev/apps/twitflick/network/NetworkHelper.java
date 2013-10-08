@@ -5,8 +5,10 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.qvdev.apps.twitflick.Presenter.BuzzingPresenter;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
+import com.qvdev.apps.twitflick.api.models.BuzzingDetail;
+import com.qvdev.apps.twitflick.listeners.onBuzzingDetailsResultListener;
+import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -27,66 +29,140 @@ import java.util.List;
 /**
  * Created by dirkwilmer on 7/26/13.
  */
-public class NetworkHelper extends AsyncTask<URL, Integer, List<Buzzing>> {
+public class NetworkHelper {
 
     //TODO::Maybe implement VOLLEY?
     //http://blog.bignerdranch.com/3177-solving-the-android-image-loading-problem-volley-vs-picasso/
+    //TODO::Think of a general Twitlfick api??
     private Gson mGSon = new Gson();
-    private BuzzingPresenter mBuzzingPresenter = null;
+    private onBuzzingResultListener mBuzzingResultListener = null;
+    private onBuzzingDetailsResultListener mBuzzingDetailsResultListener;
 
-    //TODO::Create a listener
-    public NetworkHelper(BuzzingPresenter context) {
-        mBuzzingPresenter = context;
+    public void getBuzzing(onBuzzingResultListener listener, URL[] urls) {
+        mBuzzingResultListener = listener;
+        buzzing.execute(urls);
     }
 
-    public List<Buzzing> getJson(URL url) {
+    public void getBuzzingDetails(onBuzzingDetailsResultListener listener, URL[] urls) {
+        mBuzzingDetailsResultListener = listener;
+        buzzingDetails.execute(urls);
+    }
 
-        HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(url.toString());
-        List<Buzzing> buzzingResult = null;
+    public AsyncTask<URL, Integer, List<Buzzing>> buzzing = new AsyncTask<URL, Integer, List<Buzzing>>() {
 
-        try {
-            HttpResponse response = client.execute(httpGet);
-            StatusLine statusLine = response.getStatusLine();
-            int statusCode = statusLine.getStatusCode();
-            if (statusCode == 200) {
-                HttpEntity entity = response.getEntity();
-                InputStream content = entity.getContent();
+        public List<Buzzing> getJson(URL url) {
 
-                Reader reader = new InputStreamReader(content);
-                Type listType = new TypeToken<List<Buzzing>>() {
-                }.getType();
+            HttpClient client = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet(url.toString());
+            List<Buzzing> buzzingResult = null;
 
-                try {
-                    buzzingResult = mGSon.fromJson(reader, listType);
-                } catch (Exception e) {
-                    Log.d("APP", "Exception" + e);
+            try {
+                HttpResponse response = client.execute(httpGet);
+                StatusLine statusLine = response.getStatusLine();
+                int statusCode = statusLine.getStatusCode();
+                if (statusCode == 200) {
+                    HttpEntity entity = response.getEntity();
+                    InputStream content = entity.getContent();
+
+                    Reader reader = new InputStreamReader(content);
+                    Type listType = new TypeToken<List<Buzzing>>() {
+                    }.getType();
+
+                    try {
+                        buzzingResult = mGSon.fromJson(reader, listType);
+                    } catch (Exception e) {
+                        Log.d("APP", "Exception" + e);
+                        mBuzzingResultListener.onBuzzingRetrievalFailed();
+                    }
+
+                } else {
+                    Log.e(Gson.class.toString(), "Failed to download file");
+                    mBuzzingResultListener.onBuzzingRetrievalFailed();
                 }
-
-            } else {
-                Log.e(Gson.class.toString(), "Failed to download file");
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+                mBuzzingResultListener.onBuzzingRetrievalFailed();
+            } catch (IOException e) {
+                e.printStackTrace();
+                mBuzzingResultListener.onBuzzingRetrievalFailed();
             }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            return buzzingResult;
         }
 
-        return buzzingResult;
-    }
+        @Override
+        protected List<Buzzing> doInBackground(URL... urls) {
 
-    @Override
-    protected List<Buzzing> doInBackground(URL... urls) {
+            List<Buzzing> buzzingResult = getJson(urls[0]);
 
-        List<Buzzing> buzzingResult = getJson(urls[0]);
-
-        return buzzingResult;
-    }
-
-    @Override
-    protected void onPostExecute(List<Buzzing> result) {
-        if (result != null) {
-            mBuzzingPresenter.refresh(result);
+            return buzzingResult;
         }
-    }
+
+        @Override
+        protected void onPostExecute(List<Buzzing> result) {
+            if (result != null) {
+                mBuzzingResultListener.onBuzzingRetrievalSuccess(result);
+            }
+        }
+    };
+
+
+    public AsyncTask<URL, Integer, BuzzingDetail> buzzingDetails = new AsyncTask<URL, Integer, BuzzingDetail>() {
+
+        public BuzzingDetail getJson(URL url) {
+
+            HttpClient client = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet(url.toString());
+            BuzzingDetail buzzingDetailResult = null;
+
+            try {
+                HttpResponse response = client.execute(httpGet);
+                StatusLine statusLine = response.getStatusLine();
+                int statusCode = statusLine.getStatusCode();
+                if (statusCode == 200) {
+                    HttpEntity entity = response.getEntity();
+                    InputStream content = entity.getContent();
+
+                    Reader reader = new InputStreamReader(content);
+                    Type listType = new TypeToken<BuzzingDetail>() {
+                    }.getType();
+
+                    try {
+                        buzzingDetailResult = mGSon.fromJson(reader, listType);
+                    } catch (Exception e) {
+                        Log.d("APP", "Exception" + e);
+                        mBuzzingDetailsResultListener.onBuzzingRetrievalFailed();
+                    }
+
+                } else {
+                    Log.e(Gson.class.toString(), "Failed to download file");
+                    mBuzzingDetailsResultListener.onBuzzingRetrievalFailed();
+                }
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+                mBuzzingDetailsResultListener.onBuzzingRetrievalFailed();
+            } catch (IOException e) {
+                e.printStackTrace();
+                mBuzzingDetailsResultListener.onBuzzingRetrievalFailed();
+            }
+
+            return buzzingDetailResult;
+        }
+
+        @Override
+        protected BuzzingDetail doInBackground(URL... urls) {
+
+            BuzzingDetail buzzingDetailResult = getJson(urls[0]);
+
+            return buzzingDetailResult;
+        }
+
+        @Override
+        protected void onPostExecute(BuzzingDetail result) {
+            if (result != null) {
+                mBuzzingDetailsResultListener.onBuzzingRetrievalSuccess(result);
+            }
+        }
+    };
+
 }

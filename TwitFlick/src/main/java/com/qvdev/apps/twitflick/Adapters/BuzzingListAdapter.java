@@ -41,6 +41,7 @@ public class BuzzingListAdapter extends BaseAdapter {
         public ImageButton playTrailerButton;
         public ImageButton tweetLikeButton;
         public ImageButton tweetHateButton;
+        public int position;
     }
 
 
@@ -119,6 +120,9 @@ public class BuzzingListAdapter extends BaseAdapter {
         viewHolder.tweetLikeButton.setTag(position);
         viewHolder.tweetHateButton.setTag(position);
 
+        viewHolder.position = position;
+        setButtonOnClickListener(v);
+
         return v;
     }
 
@@ -138,6 +142,8 @@ public class BuzzingListAdapter extends BaseAdapter {
                             mListener.onHateClicked((Integer) view.getTag());
                             break;
                         default:
+                            BuzzingViewHolder buzzing = (BuzzingViewHolder) view.getTag();
+                            mListener.onViewClicked(buzzing.position);
                             break;
                     }
 

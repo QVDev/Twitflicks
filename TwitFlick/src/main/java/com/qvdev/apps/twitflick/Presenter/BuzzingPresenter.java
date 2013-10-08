@@ -2,6 +2,7 @@ package com.qvdev.apps.twitflick.Presenter;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.widget.Toast;
 
 import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
@@ -10,6 +11,8 @@ import com.qvdev.apps.twitflick.View.BuzzingView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
 import com.qvdev.apps.twitflick.com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
+import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
+import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,13 +21,15 @@ import java.util.List;
 /**
  * Created by dirkwilmer on 7/29/13.
  */
-public class BuzzingPresenter implements onBuzzingItemClickedListener {
+public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemClickedListener {
 
     private static final String FORCE_FULLSCREEN = "force_fullscreen";
 
     private BuzzingView mBuzzingView;
     private BuzzingModel mBuzzingModel;
     private BuzzingListAdapter mBuzzingListAdapter;
+
+    private onBuzzingListItemClicked mExternalItemListener;
 
     public BuzzingPresenter(BuzzingView buzzingView) {
         mBuzzingView = buzzingView;
@@ -39,25 +44,19 @@ public class BuzzingPresenter implements onBuzzingItemClickedListener {
         mBuzzingListAdapter.setOnBuzzingItemClicked(this);
         mBuzzingView.setAdapter(mBuzzingListAdapter);
 
+        mExternalItemListener = (onBuzzingListItemClicked) mBuzzingView.getActivity();
     }
 
 
     private void getBuzzing() {
-        //TODO::Think of a general Twitlfick api
-        NetworkHelper networkHelper = new NetworkHelper(this);
+        NetworkHelper networkHelper = new NetworkHelper();
         URL url = null;
         try {
             url = new URL("" + mBuzzingView.getString(R.string.base_url) + mBuzzingView.getString(R.string.api_url) + mBuzzingView.getString(R.string.buzzing_url) + mBuzzingView.getString(R.string.buzzing_retrieve_count) + mBuzzingView.getString(R.string.buzzing_retrieve_limit));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        networkHelper.execute(new URL[]{url});
-    }
-
-    public void refresh(List<Buzzing> result) {
-        mBuzzingModel.getBuzzing().clear();
-        mBuzzingModel.getBuzzing().addAll(result);
-        mBuzzingListAdapter.notifyDataSetChanged();
+        networkHelper.getBuzzing(this, new URL[]{url});
     }
 
     @Override
@@ -81,11 +80,33 @@ public class BuzzingPresenter implements onBuzzingItemClickedListener {
         share(hateText);
     }
 
+    @Override
+    public void onViewClicked(int position) {
+        Buzzing buzzing = mBuzzingModel.getBuzzing().get(position);
+        mExternalItemListener.onBuzzingItemSelected(buzzing.getID());
+    }
+
     private void share(String shareText) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, shareText);
         sendIntent.setType("text/plain");
         mBuzzingView.startActivity(Intent.createChooser(sendIntent, mBuzzingView.getResources().getText(R.string.send_to)));
+    }
+
+    @Override
+    public void onBuzzingRetrievalSuccess(List<Buzzing> buzzingList) {
+        refresh(buzzingList);
+    }
+
+    @Override
+    public void onBuzzingRetrievalFailed() {
+        Toast.makeText(mBuzzingView.getActivity(), "Failed to fetch data", Toast.LENGTH_LONG).show();
+    }
+
+    public void refresh(List<Buzzing> result) {
+        mBuzzingModel.getBuzzing().clear();
+        mBuzzingModel.getBuzzing().addAll(result);
+        mBuzzingListAdapter.notifyDataSetChanged();
     }
 }

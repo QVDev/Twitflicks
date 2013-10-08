@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.View.BuzzingView;
+import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.View.MainView;
 
 import java.util.Locale;
@@ -31,17 +32,27 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = new BuzzingView();
+
+        Fragment fragment = null;
         Bundle args = new Bundle();
-        args.putInt(BuzzingView.ARG_SECTION_NUMBER, position + 1);
-        fragment.setArguments(args);
+        switch (position) {
+            case 0:
+                fragment = new BuzzingView();
+                args.putInt(BuzzingView.ARG_SECTION_NUMBER, position + 1);
+                fragment.setArguments(args);
+                break;
+            case 1:
+                fragment = new DetailView();
+                args.putInt(BuzzingView.ARG_SECTION_NUMBER, position + 1);
+                fragment.setArguments(args);
+        }
         return fragment;
     }
 
     @Override
     public int getCount() {
         // Show x pages
-        return 1;
+        return 2;
     }
 
     @Override
@@ -52,8 +63,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return mMainView.getString(R.string.title_section1).toUpperCase(l);
             case 1:
                 return mMainView.getString(R.string.title_section2).toUpperCase(l);
-            case 2:
-                return mMainView.getString(R.string.title_section3).toUpperCase(l);
         }
         return null;
     }

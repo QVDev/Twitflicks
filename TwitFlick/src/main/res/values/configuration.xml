@@ -5,6 +5,7 @@
     <string name="base_url">"http://www.twitflicks.com/"</string>
     <string name="api_url">"api/"</string>
     <string name="buzzing_url">"buzzing.json?"</string>
+    <string name="buzzing_detail_url">"detail.json?id="</string>
 
     <!-- url parameters -->
     <string name="buzzing_retrieve_count">"count="</string>

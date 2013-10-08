@@ -5,9 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
 import com.qvdev.apps.twitflick.Presenter.BuzzingPresenter;
@@ -21,14 +19,14 @@ public class BuzzingView extends Fragment {
     public static final String ARG_SECTION_NUMBER = "section_number";
 
     private BuzzingPresenter mBuzzingPresenter;
-    private ListView mDummyListView;
+    private ListView mBuzzingListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_main_buzzing, container, false);
-        mDummyListView = (ListView) rootView.findViewById(R.id.listViewBuzzing);
+        mBuzzingListView = (ListView) rootView.findViewById(R.id.listViewBuzzing);
         return rootView;
     }
 
@@ -38,6 +36,7 @@ public class BuzzingView extends Fragment {
     }
 
     public void setAdapter(BuzzingListAdapter adapter) {
-        mDummyListView.setAdapter(adapter);
+        mBuzzingListView.setAdapter(adapter);
     }
+
 }

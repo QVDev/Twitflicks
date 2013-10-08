@@ -10,4 +10,6 @@ public interface onBuzzingItemClickedListener {
     public void onLikeClicked(int position);
 
     public void onHateClicked(int position);
+
+    public void onViewClicked(int position);
 }
