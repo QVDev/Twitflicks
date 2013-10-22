@@ -19,6 +19,7 @@ Screenshots
 ![Alt text](/screens/device-2013-10-06-163352.png "Share like / hate")
 ![Alt text](/screens/device-2013-10-06-195938.png "New design")
 ![Alt text](/screens/device-2013-10-08-214411.png "Detail view")
+![Alt text](/screens/device-2013-10-22-203418.png "New Detail view")
 
 
 
