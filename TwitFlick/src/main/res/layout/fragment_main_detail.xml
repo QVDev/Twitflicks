@@ -1,21 +1,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:id="@+id/buzzing_detail"
-              android:background="@android:color/white"
-              tools:context=".MainActivity$DummySectionFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/buzzing_detail"
+    tools:context=".MainActivity$DummySectionFragment">
 
     <TextView
-            android:id="@+id/detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@android:color/black"
+        android:textAppearance="@android:style/TextAppearance.Large"/>
 
-    <ImageView
-            android:id="@+id/detail_poster"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/detail_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@android:color/black" />
+
+
+    <android.support.v4.view.ViewPager xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/detail_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <android.support.v4.view.PagerTitleStrip
+            android:id="@+id/detail_pager_title_strip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="#33b5e5"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:textColor="#fff" />
+
+    </android.support.v4.view.ViewPager>
 
 
 </LinearLayout>
