@@ -18,6 +18,9 @@ build/
 # Local configuration file (sdk path, etc)
 local.properties
 
+# Developer key
+src/main/java/com/qvdev/apps/twitflick/DeveloperKey.java
+
 # Eclipse project files
 .classpath
 .project
