@@ -2,7 +2,6 @@ package com.qvdev.apps.twitflick.Adapters;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
 import com.qvdev.apps.twitflick.R;
-import com.qvdev.apps.twitflick.com.qvdev.apps.twitflick.utils.CropSquareTransformation;
+import com.qvdev.apps.twitflick.com.qvdev.apps.twitflick.utils.CircleTransform;
 import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
 import com.squareup.picasso.Picasso;
 
@@ -78,18 +77,22 @@ public class BuzzingListAdapter extends BaseAdapter {
             viewHolder.itemTweetsToday = (TextView) v.findViewById(R.id.buzzingToday);
             viewHolder.itemTweetsTotal = (TextView) v.findViewById(R.id.buzzingTotal);
             viewHolder.itemInfoButton = (ImageButton) v.findViewById(R.id.itemInformation);
-
             viewHolder.itemRating = (RatingBar) v.findViewById(R.id.buzzingRating);
-            viewHolder.itemRating.setMax(5);
 
-            viewHolder.playTrailerButton = (ImageButton) v.findViewById(R.id.playTrailerButton);
-            setButtonOnClickListener(viewHolder.playTrailerButton);
+            if (viewHolder.playTrailerButton != null) {
+                viewHolder.playTrailerButton = (ImageButton) v.findViewById(R.id.playTrailerButton);
+                setButtonOnClickListener(viewHolder.playTrailerButton);
+            }
 
-            viewHolder.tweetLikeButton = (ImageButton) v.findViewById(R.id.tweetLikeButton);
-            setButtonOnClickListener(viewHolder.tweetLikeButton);
+            if (viewHolder.tweetLikeButton != null) {
+                viewHolder.tweetLikeButton = (ImageButton) v.findViewById(R.id.tweetLikeButton);
+                setButtonOnClickListener(viewHolder.tweetLikeButton);
+            }
 
-            viewHolder.tweetHateButton = (ImageButton) v.findViewById(R.id.tweetHateButton);
-            setButtonOnClickListener(viewHolder.tweetHateButton);
+            if (viewHolder.tweetHateButton != null) {
+                viewHolder.tweetHateButton = (ImageButton) v.findViewById(R.id.tweetHateButton);
+                setButtonOnClickListener(viewHolder.tweetHateButton);
+            }
 
             v.setTag(viewHolder);
 
@@ -97,28 +100,33 @@ public class BuzzingListAdapter extends BaseAdapter {
             viewHolder = (BuzzingViewHolder) v.getTag();
         }
 
-        if (position % 2 == 0) {
-            v.setBackgroundColor(Color.parseColor(GRAY_COLOR));
-        } else {
-            v.setBackgroundColor(Color.parseColor(WHITE_COLOR));
+        if (viewHolder.itemName != null)
+            viewHolder.itemName.setText(mBuzzingModel.getBuzzing().get(position).getName());
+        if (viewHolder.itemRating != null)
+            viewHolder.itemRating.setRating(mBuzzingModel.getBuzzing().get(position).getRating());
+        if (viewHolder.itemSummary != null)
+            viewHolder.itemSummary.setText(mBuzzingModel.getBuzzing().get(position).getShortSynposis());
+        if (viewHolder.itemTweetsToday != null)
+            viewHolder.itemTweetsToday.setText(v.getContext().getString(R.string.tweets_today, (int) mBuzzingModel.getBuzzing().get(position).getTweetsToday()));
+        if (viewHolder.itemTweetsTotal != null)
+            viewHolder.itemTweetsTotal.setText(v.getContext().getString(R.string.tweets_total, (int) mBuzzingModel.getBuzzing().get(position).getTweets()));
+
+        if (viewHolder.itemPoster != null) {
+            String imageUrl = "" + v.getContext().getString(R.string.base_url) + mBuzzingModel.getBuzzing().get(position).getPosterUrl();
+            Picasso.with(v.getContext()).load(imageUrl).transform(new CircleTransform()).placeholder(android.R.drawable.ic_menu_gallery).into(viewHolder.itemPoster);
         }
 
-        viewHolder.itemName.setText(mBuzzingModel.getBuzzing().get(position).getName());
-        viewHolder.itemRating.setRating(mBuzzingModel.getBuzzing().get(position).getRating());
-        viewHolder.itemSummary.setText(mBuzzingModel.getBuzzing().get(position).getShortSynposis());
-        viewHolder.itemTweetsToday.setText(v.getContext().getString(R.string.tweets_today, (int) mBuzzingModel.getBuzzing().get(position).getTweetsToday()));
-        viewHolder.itemTweetsTotal.setText(v.getContext().getString(R.string.tweets_total, (int) mBuzzingModel.getBuzzing().get(position).getTweets()));
 
-        viewHolder.itemPoster.setImageResource(R.drawable.default_poster);
-        String imageUrl = "" + v.getContext().getString(R.string.base_url) + mBuzzingModel.getBuzzing().get(position).getPosterUrl();
-        Picasso.with(v.getContext()).load(imageUrl).transform(new CropSquareTransformation()).into(viewHolder.itemPoster);
-
-
-        viewHolder.itemInfoButton.setTag(mBuzzingModel.getBuzzing().get(position).getID());
-        viewHolder.playTrailerButton.setTag(mBuzzingModel.getBuzzing().get(position).getTrailer());
-        viewHolder.itemPoster.setTag(mBuzzingModel.getBuzzing().get(position).getTrailer());
-        viewHolder.tweetLikeButton.setTag(position);
-        viewHolder.tweetHateButton.setTag(position);
+        if (viewHolder.itemInfoButton != null)
+            viewHolder.itemInfoButton.setTag(mBuzzingModel.getBuzzing().get(position).getID());
+        if (viewHolder.playTrailerButton != null)
+            viewHolder.playTrailerButton.setTag(mBuzzingModel.getBuzzing().get(position).getTrailer());
+        if (viewHolder.itemPoster != null)
+            viewHolder.itemPoster.setTag(mBuzzingModel.getBuzzing().get(position).getTrailer());
+        if (viewHolder.tweetLikeButton != null)
+            viewHolder.tweetLikeButton.setTag(position);
+        if (viewHolder.tweetHateButton != null)
+            viewHolder.tweetHateButton.setTag(position);
 
         viewHolder.position = position;
         setButtonOnClickListener(v);

@@ -17,4 +17,7 @@
     <string name="tweets_today">Today %1$d</string>
     <string name="tweets_total">Total %1$d</string>
 
+    <string name="detail_no_movie_title">No movie selected</string>
+    <string name="detail_no_movie_summary">Please select a movie</string>
+
 </resources>

@@ -1,6 +1,5 @@
 package com.qvdev.apps.twitflick.Adapters;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,6 +8,7 @@ import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.View.BuzzingView;
 import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.View.MainView;
+import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
 
 import java.util.Locale;
 
@@ -20,10 +20,12 @@ import java.util.Locale;
  * A {@link android.support.v4.app.FragmentPagerAdapter} that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class SectionsPagerAdapter extends FragmentPagerAdapter implements onBuzzingListItemClicked {
 
 
     private final MainView mMainView;
+    private DetailView mDetailView;
+    private BuzzingView mBuzzingView;
 
     public SectionsPagerAdapter(FragmentManager fm, MainView mainView) {
         super(fm);
@@ -32,26 +34,31 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
-        Fragment fragment = null;
-        Bundle args = new Bundle();
         switch (position) {
-            case 0:
-                fragment = new BuzzingView();
-                args.putInt(BuzzingView.ARG_SECTION_NUMBER, position + 1);
-                fragment.setArguments(args);
-                break;
             case 1:
-                fragment = new DetailView();
-                args.putInt(BuzzingView.ARG_SECTION_NUMBER, position + 1);
-                fragment.setArguments(args);
+                return createDetailView();
+            default:
+                return createBuzzingView();
+
         }
-        return fragment;
+    }
+
+    private DetailView createDetailView() {
+        if (mDetailView == null) {
+            mDetailView = new DetailView();
+        }
+        return mDetailView;
+    }
+
+    private BuzzingView createBuzzingView() {
+        if (mBuzzingView == null) {
+            mBuzzingView = new BuzzingView();
+        }
+        return mBuzzingView;
     }
 
     @Override
     public int getCount() {
-        // Show x pages
         return 2;
     }
 
@@ -65,6 +72,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return mMainView.getString(R.string.title_section2).toUpperCase(l);
         }
         return null;
+    }
+
+    @Override
+    public void onBuzzingItemSelected(float buzzingId) {
+        mDetailView.onBuzzingItemSelected(buzzingId);
     }
 }
 

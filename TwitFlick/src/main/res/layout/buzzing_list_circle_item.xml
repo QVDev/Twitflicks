@@ -3,20 +3,20 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".MainActivity$DummySectionFragment">
 
     <ImageButton
         android:id="@+id/buzzingPoster"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/default_poster"
-        android:cropToPadding="true"
-        android:scaleType="centerCrop"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        android:layout_marginRight="10dp"
         android:background="@android:color/transparent"
-        android:layout_gravity="left" />
+        android:src="@android:drawable/ic_menu_gallery" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Title"
@@ -24,9 +24,8 @@
         android:textColor="@android:color/black"
         android:layout_toRightOf="@id/buzzingPoster"
         android:id="@+id/buzzingName"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="center_horizontal|top" />
+        android:layout_centerVertical="true" />
+
 
     <TextView
         android:layout_width="match_parent"
@@ -40,9 +39,11 @@
         android:layout_alignParentRight="true"
         android:maxLines="3"
         android:ellipsize="end"
+        android:gravity="right"
         android:layout_below="@id/buzzingName"
         android:layout_above="@id/playTrailerButton"
-        android:layout_gravity="center_horizontal|top" />
+        android:layout_gravity="center_horizontal|top"
+        android:visibility="gone" />
 
     <RatingBar
         android:id="@+id/buzzingRating"
@@ -53,29 +54,43 @@
         android:numStars="5"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        style="?android:attr/ratingBarStyleSmall" />
+        style="?android:attr/ratingBarStyleSmall"
+        android:visibility="gone" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/tweets_total"
-        android:textSize="12sp"
-        android:textColor="@android:color/white"
-        android:id="@+id/buzzingTotal"
-        android:layout_alignBottom="@id/buzzingPoster"
-        android:layout_toRightOf="@id/buzzingPoster"
-        android:background="#33b5e5" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/tweets_today"
-        android:textSize="12sp"
-        android:textColor="@android:color/white"
-        android:id="@+id/buzzingToday"
-        android:layout_alignBottom="@id/buzzingPoster"
         android:layout_alignParentRight="true"
-        android:background="#FA7014" />
+        android:gravity="right"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/buzzingName">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/tweets_today"
+            android:textSize="12sp"
+            android:id="@+id/buzzingToday" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/tweets_total"
+            android:textSize="12sp"
+            android:id="@+id/buzzingTotal" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_height="2dp"
+        android:layout_width="match_parent"
+        android:layout_below="@id/buzzingPoster"
+        android:layout_toRightOf="@id/buzzingPoster"
+        android:layout_alignParentRight="true"
+        android:background="#FF5BC24C" />
+
 </RelativeLayout>

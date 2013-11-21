@@ -1,0 +1,19 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".MainActivity$DummySectionFragment">
+
+    <ImageButton
+        android:id="@+id/buzzingPoster"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/default_poster"
+        android:cropToPadding="true"
+        android:scaleType="centerCrop"
+        android:padding="0dp"
+        android:layout_margin="0dp"
+        android:background="@android:color/transparent"
+        android:layout_gravity="left" />
+</RelativeLayout>

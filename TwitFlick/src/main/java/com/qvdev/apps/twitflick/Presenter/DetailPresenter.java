@@ -1,5 +1,6 @@
 package com.qvdev.apps.twitflick.Presenter;
 
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.qvdev.apps.twitflick.Model.DetailModel;
@@ -17,6 +18,7 @@ import java.net.URL;
  */
 public class DetailPresenter implements onBuzzingDetailsResultListener {
 
+    private static final String DETAIL_ID = "detail_id";
     private DetailView mDetailView;
     private DetailModel mDetailModel;
 
@@ -51,5 +53,18 @@ public class DetailPresenter implements onBuzzingDetailsResultListener {
     @Override
     public void onBuzzingRetrievalFailed() {
         Toast.makeText(mDetailView.getActivity(), "Failed to fetch data", Toast.LENGTH_LONG).show();
+    }
+
+    public Bundle saveState(Bundle outState) {
+        if (outState != null && mDetailModel.getBuzzingDetail() != null) {
+            outState.putFloat(DETAIL_ID, mDetailModel.getBuzzingDetail().getID());
+        }
+        return outState;
+    }
+
+    public void restoreState(Bundle savedInstanceState) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(DETAIL_ID)) {
+            getDetail(savedInstanceState.getFloat(DETAIL_ID));
+        }
     }
 }

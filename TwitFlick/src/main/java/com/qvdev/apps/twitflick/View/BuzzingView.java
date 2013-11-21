@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
 import com.qvdev.apps.twitflick.Presenter.BuzzingPresenter;
@@ -16,17 +16,15 @@ import com.qvdev.apps.twitflick.R;
  */
 
 public class BuzzingView extends Fragment {
-    public static final String ARG_SECTION_NUMBER = "section_number";
-
     private BuzzingPresenter mBuzzingPresenter;
-    private ListView mBuzzingListView;
+    private GridView mBuzzingGridView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_main_buzzing, container, false);
-        mBuzzingListView = (ListView) rootView.findViewById(R.id.listViewBuzzing);
+        mBuzzingGridView = (GridView) rootView.findViewById(R.id.GridLayoutBuzzing);
         return rootView;
     }
 
@@ -36,7 +34,7 @@ public class BuzzingView extends Fragment {
     }
 
     public void setAdapter(BuzzingListAdapter adapter) {
-        mBuzzingListView.setAdapter(adapter);
+        mBuzzingGridView.setAdapter(adapter);
     }
 
 }

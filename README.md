@@ -20,6 +20,8 @@ Screenshots
 ![Alt text](/screens/device-2013-10-06-195938.png "New design")
 ![Alt text](/screens/device-2013-10-08-214411.png "Detail view")
 ![Alt text](/screens/device-2013-10-22-203418.png "New Detail view")
+![Alt text](/screens/device-2013-11-21-010533.png "New design Buzzing")
+![Alt text](/screens/device-2013-11-21-010559.png "New design Details")
 
 
 

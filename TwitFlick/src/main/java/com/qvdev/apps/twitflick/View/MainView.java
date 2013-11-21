@@ -40,12 +40,7 @@ public class MainView extends FragmentActivity implements onBuzzingListItemClick
     @Override
     public void onBuzzingItemSelected(float buzzingId) {
         mViewPager.setCurrentItem(1);
-
-        Bundle arguments = new Bundle();
-        arguments.putFloat("id", buzzingId);
-        DetailView detailView = new DetailView();
-        detailView.setArguments(arguments);
-        getSupportFragmentManager().beginTransaction().replace(R.id.buzzing_detail, detailView).commit();
+        mSectionsPagerAdapter.onBuzzingItemSelected(buzzingId);
     }
 
     @Override

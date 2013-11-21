@@ -40,7 +40,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     }
 
     private void init() {
-        mBuzzingListAdapter = new BuzzingListAdapter(mBuzzingView.getActivity(), R.layout.buzzing_list_item, mBuzzingModel);
+        mBuzzingListAdapter = new BuzzingListAdapter(mBuzzingView.getActivity(), R.layout.buzzing_list_circle_item, mBuzzingModel);
         mBuzzingListAdapter.setOnBuzzingItemClicked(this);
         mBuzzingView.setAdapter(mBuzzingListAdapter);
 
