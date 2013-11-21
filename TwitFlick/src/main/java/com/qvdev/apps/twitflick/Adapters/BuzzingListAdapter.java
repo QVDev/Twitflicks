@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
 import com.qvdev.apps.twitflick.R;
-import com.qvdev.apps.twitflick.com.qvdev.apps.twitflick.utils.CircleTransform;
+import com.qvdev.apps.twitflick.utils.CircleTransform;
 import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
 import com.squareup.picasso.Picasso;
 

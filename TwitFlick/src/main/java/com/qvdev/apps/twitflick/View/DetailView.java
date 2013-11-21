@@ -1,7 +1,6 @@
 package com.qvdev.apps.twitflick.View;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.qvdev.apps.twitflick.Presenter.DetailPresenter;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.api.models.BuzzingDetail;
@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
  * Created by dirkwilmer on 7/29/13.
  */
 
-public class DetailView extends Fragment implements onBuzzingListItemClicked {
+public class DetailView extends YouTubePlayerSupportFragment implements onBuzzingListItemClicked {
     private DetailPresenter mDetailPresenter;
 
     private ImageView mPoster;
@@ -65,11 +65,8 @@ public class DetailView extends Fragment implements onBuzzingListItemClicked {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
-    {
+    public void onSaveInstanceState(Bundle outState) {
         outState = mDetailPresenter.saveState(outState);
         super.onSaveInstanceState(outState);
     }
-
-
 }

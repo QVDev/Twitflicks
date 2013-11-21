@@ -1,4 +1,4 @@
-package com.qvdev.apps.twitflick.com.qvdev.apps.twitflick.network;
+package com.qvdev.apps.twitflick.network;
 
 import android.os.AsyncTask;
 import android.util.Log;

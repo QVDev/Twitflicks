@@ -3,12 +3,16 @@ package com.qvdev.apps.twitflick.Presenter;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.qvdev.apps.twitflick.DeveloperKey;
 import com.qvdev.apps.twitflick.Model.DetailModel;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.api.models.BuzzingDetail;
-import com.qvdev.apps.twitflick.com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.apps.twitflick.listeners.onBuzzingDetailsResultListener;
+import com.qvdev.apps.twitflick.network.NetworkHelper;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,11 +20,12 @@ import java.net.URL;
 /**
  * Created by dirkwilmer on 7/29/13.
  */
-public class DetailPresenter implements onBuzzingDetailsResultListener {
+public class DetailPresenter implements onBuzzingDetailsResultListener, YouTubePlayer.OnInitializedListener {
 
     private static final String DETAIL_ID = "detail_id";
     private DetailView mDetailView;
     private DetailModel mDetailModel;
+    private YouTubePlayer mYoutubePlayer;
 
     public DetailPresenter(DetailView detailView) {
         mDetailView = detailView;
@@ -48,6 +53,21 @@ public class DetailPresenter implements onBuzzingDetailsResultListener {
     public void onBuzzingRetrievalSuccess(BuzzingDetail buzzingDetail) {
         mDetailModel.setBuzzingDetail(buzzingDetail);
         mDetailView.setMovieInfo(mDetailModel.getBuzzingDetail());
+        playVideo();
+    }
+
+    private String getVideoId() {
+        String youtubeUrl = mDetailModel.getBuzzingDetail().getMovie().getTrailer();
+        int startIndex = youtubeUrl.lastIndexOf("=") + 1;
+        String youtubeId = youtubeUrl.substring(startIndex, youtubeUrl.length());
+        return youtubeId;
+    }
+
+    private void initYoutubeTrailerFragment() {
+        if (mYoutubePlayer == null) {
+            YouTubePlayerSupportFragment youTubePlayerFragment = (YouTubePlayerSupportFragment) mDetailView.getFragmentManager().findFragmentById(R.id.youtube_fragment);
+            youTubePlayerFragment.initialize(DeveloperKey.DEVELOPER_KEY, this);
+        }
     }
 
     @Override
@@ -66,5 +86,32 @@ public class DetailPresenter implements onBuzzingDetailsResultListener {
         if (savedInstanceState != null && savedInstanceState.containsKey(DETAIL_ID)) {
             getDetail(savedInstanceState.getFloat(DETAIL_ID));
         }
+    }
+
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player,
+                                        boolean wasRestored) {
+        mYoutubePlayer = player;
+        configureYoutubePlayer();
+        playVideo();
+    }
+
+    private void playVideo() {
+
+        if (mYoutubePlayer == null) {
+            initYoutubeTrailerFragment();
+        } else {
+            mYoutubePlayer.cueVideo(getVideoId());
+        }
+    }
+
+    private void configureYoutubePlayer() {
+        mYoutubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.MINIMAL);
+        mYoutubePlayer.setFullscreenControlFlags(YouTubePlayer.FULLSCREEN_FLAG_CONTROL_ORIENTATION | YouTubePlayer.FULLSCREEN_FLAG_ALWAYS_FULLSCREEN_IN_LANDSCAPE);
+    }
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+        Toast.makeText(mDetailView.getActivity(), "Failed to fetch video", Toast.LENGTH_LONG).show();
     }
 }

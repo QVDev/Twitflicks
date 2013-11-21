@@ -1,4 +1,4 @@
-package com.qvdev.apps.twitflick.com.qvdev.apps.twitflick.utils;
+package com.qvdev.apps.twitflick.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

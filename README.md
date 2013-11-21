@@ -22,6 +22,7 @@ Screenshots
 ![Alt text](/screens/device-2013-10-22-203418.png "New Detail view")
 ![Alt text](/screens/device-2013-11-21-010533.png "New design Buzzing")
 ![Alt text](/screens/device-2013-11-21-010559.png "New design Details")
+![Alt text](/screens/device-2013-11-21-231053.png "New design Details with youtube integration")
 
 
 

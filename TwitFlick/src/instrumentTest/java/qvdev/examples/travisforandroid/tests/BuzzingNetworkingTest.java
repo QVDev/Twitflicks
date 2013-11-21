@@ -4,7 +4,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.qvdev.apps.twitflick.View.MainView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
-import com.qvdev.apps.twitflick.com.qvdev.apps.twitflick.network.NetworkHelper;
+import com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
 
 import java.net.MalformedURLException;

@@ -8,6 +8,7 @@
 
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/detail_poster"
         android:layout_width="100dp"
         android:layout_height="150dp"
@@ -15,7 +16,7 @@
         android:cropToPadding="true"
         android:scaleType="centerCrop"
         android:background="@android:color/transparent"
-        android:src="@android:drawable/ic_menu_report_image"/>
+        android:src="@android:drawable/ic_menu_report_image" />
 
 
     <LinearLayout

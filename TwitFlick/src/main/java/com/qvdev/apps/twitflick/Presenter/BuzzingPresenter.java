@@ -9,7 +9,7 @@ import com.qvdev.apps.twitflick.Model.BuzzingModel;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.View.BuzzingView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
-import com.qvdev.apps.twitflick.com.qvdev.apps.twitflick.network.NetworkHelper;
+import com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
 import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
 import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
