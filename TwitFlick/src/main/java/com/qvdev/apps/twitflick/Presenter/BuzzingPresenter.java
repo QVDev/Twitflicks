@@ -13,6 +13,7 @@ import com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
 import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
 import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
+import com.qvdev.libs.Refreshbar.RefreshBarListener;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Created by dirkwilmer on 7/29/13.
  */
-public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemClickedListener {
+public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemClickedListener, RefreshBarListener {
 
     private static final String FORCE_FULLSCREEN = "force_fullscreen";
 
@@ -36,7 +37,6 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
         mBuzzingModel = new BuzzingModel();
 
         init();
-        getBuzzing();
     }
 
     private void init() {
@@ -97,6 +97,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     @Override
     public void onBuzzingRetrievalSuccess(List<Buzzing> buzzingList) {
         refresh(buzzingList);
+        mBuzzingView.onRefreshFinished();
     }
 
     @Override
@@ -108,5 +109,10 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
         mBuzzingModel.getBuzzing().clear();
         mBuzzingModel.getBuzzing().addAll(result);
         mBuzzingListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onStartLoadingContent() {
+        getBuzzing();
     }
 }

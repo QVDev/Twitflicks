@@ -1,10 +1,22 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context=".MainActivity$DummySectionFragment">
 
+    <com.qvdev.libs.Refreshbar.RefreshBar
+        android:id="@+id/refresh_bar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_gravity="center_horizontal"
+        android:max="50"
+        android:progressDrawable="@drawable/progress_bar"
+        android:background="@android:color/transparent"
+        android:indeterminateDrawable="@drawable/progress_bar_interminate"
+        />
 
     <GridView
         android:id="@+id/GridLayoutBuzzing"
@@ -15,7 +27,5 @@
         android:layout_margin="0dp"
         android:verticalSpacing="0dp"
         android:horizontalSpacing="0dp"
-        android:listSelector="@null"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" />
-</RelativeLayout>
+        android:listSelector="@null" />
+</LinearLayout>
