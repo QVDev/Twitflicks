@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 public class RefreshBar extends ProgressBar implements OnTouchListener, OnRefreshFinishedListener, GestureDetector.OnGestureListener {
 
     private static String LOG_TAG = RefreshBar.class.getSimpleName();
-    private static int PULL_ACTIVATE_DISTANCE = 10;
+    private static int PULL_ACTIVATE_DISTANCE = 1;
 
     private int mOffset = 0;
     private boolean isLoading = false;
@@ -150,7 +150,7 @@ public class RefreshBar extends ProgressBar implements OnTouchListener, OnRefres
 
     private void handleDistance(int distance) {
         if (listIsAtTop() && !isLoading) {
-            if (distance < PULL_ACTIVATE_DISTANCE) {
+            if (distance < -PULL_ACTIVATE_DISTANCE) {
                 mOffset++;
             } else if (distance > PULL_ACTIVATE_DISTANCE) {
                 mOffset--;
