@@ -23,6 +23,8 @@ Screenshots
 ![Alt text](/screens/device-2013-11-21-010533.png "New design Buzzing")
 ![Alt text](/screens/device-2013-11-21-010559.png "New design Details")
 ![Alt text](/screens/device-2013-11-21-231053.png "New design Details with youtube integration")
+![Alt text](/screens/device-2013-11-26-225624.png "Pull to refresh loading indicator")
+![Alt text](/screens/device-2013-11-26-225705.png "Show movie related tweets")
 
 
 

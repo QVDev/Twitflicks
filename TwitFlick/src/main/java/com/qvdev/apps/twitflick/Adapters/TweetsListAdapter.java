@@ -25,8 +25,9 @@ public class TweetsListAdapter extends BaseAdapter {
      */
     public static class BuzzingViewHolder {
 
-        public TextView userName;
         public ImageButton userImage;
+        public TextView userName;
+        public TextView userText;
         public int position;
     }
 
@@ -57,8 +58,9 @@ public class TweetsListAdapter extends BaseAdapter {
 
             viewHolder = new BuzzingViewHolder();
 
-            viewHolder.userName = (TextView) v.findViewById(R.id.tweets_username);
             viewHolder.userImage = (ImageButton) v.findViewById(R.id.tweet_user_icon);
+            viewHolder.userName = (TextView) v.findViewById(R.id.tweets_username);
+            viewHolder.userText = (TextView) v.findViewById(R.id.tweets_text);
 
             v.setTag(viewHolder);
 
@@ -67,10 +69,13 @@ public class TweetsListAdapter extends BaseAdapter {
         }
 
         if (viewHolder.userName != null)
-            viewHolder.userName.setText(mTweetsModel.getNegatives().get(position).getUsername());
+            viewHolder.userName.setText(mTweetsModel.getPositives().get(position).getUsername());
+
+        if (viewHolder.userText != null)
+            viewHolder.userText.setText(mTweetsModel.getPositives().get(position).getText());
 
         if (viewHolder.userImage != null) {
-            String imageUrl = mTweetsModel.getNegatives().get(position).getImage();
+            String imageUrl = mTweetsModel.getPositives().get(position).getImage();
             Picasso.with(v.getContext()).load(imageUrl).transform(new CircleTransform()).placeholder(android.R.drawable.ic_menu_gallery).into(viewHolder.userImage);
         }
 
@@ -80,11 +85,11 @@ public class TweetsListAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mTweetsModel.getNegatives().size();
+        return mTweetsModel.getPositives().size();
     }
 
     public Object getItem(int position) {
-        return mTweetsModel.getNegatives().get(position);
+        return mTweetsModel.getPositives().get(position);
     }
 
     @Override
