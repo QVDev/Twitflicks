@@ -2,10 +2,12 @@ package com.qvdev.apps.twitflick.Model;
 
 import com.qvdev.apps.twitflick.api.models.BuzzingDetail;
 
+import java.util.Observable;
+
 /**
  * Created by dirkwilmer on 7/29/13.
  */
-public class DetailModel {
+public class DetailModel extends Observable {
 
     private BuzzingDetail mBuzzingDetail;
 
@@ -14,6 +16,13 @@ public class DetailModel {
     }
 
     public void setBuzzingDetail(BuzzingDetail buzzingDetail) {
-        this.mBuzzingDetail = buzzingDetail;
+        mBuzzingDetail = buzzingDetail;
+        triggerUpdate();
     }
+
+    private void triggerUpdate() {
+        setChanged();
+        notifyObservers(mBuzzingDetail);
+    }
+
 }

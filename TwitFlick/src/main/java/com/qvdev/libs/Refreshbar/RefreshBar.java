@@ -45,7 +45,7 @@ public class RefreshBar extends ProgressBar implements OnTouchListener, OnRefres
     }
 
 
-    public void setRefreshableView(AbsListView view) {
+    public void setRefreshableView(View view) {
         mView = view;
         mView.setOnTouchListener(this);
         mGestureDetector = new GestureDetector(mView.getContext(), this);
@@ -122,10 +122,6 @@ public class RefreshBar extends ProgressBar implements OnTouchListener, OnRefres
         reset();
     }
 
-    public void testingDeployment() {
-
-    }
-
     @Override
     public boolean onDown(MotionEvent motionEvent) {
         mOffset = 0;
@@ -168,6 +164,7 @@ public class RefreshBar extends ProgressBar implements OnTouchListener, OnRefres
 
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
+        Log.d("APP", "V2::" + v2);
         return false;
     }
 }

@@ -12,14 +12,12 @@ import android.widget.TextView;
 
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
 import com.qvdev.apps.twitflick.R;
-import com.qvdev.apps.twitflick.utils.CircleTransform;
 import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
+import com.qvdev.apps.twitflick.utils.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 public class BuzzingListAdapter extends BaseAdapter {
 
-    private static final String GRAY_COLOR = "#DEE1EA";
-    private static final String WHITE_COLOR = "#F0F1F7";
     private final BuzzingModel mBuzzingModel;
     private Context mContext;
     private int mResourceLayoutId;

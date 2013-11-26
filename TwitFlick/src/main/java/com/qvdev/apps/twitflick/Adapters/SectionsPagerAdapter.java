@@ -8,7 +8,7 @@ import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.View.BuzzingView;
 import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.View.MainView;
-import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
+import com.qvdev.apps.twitflick.View.TweetsView;
 
 import java.util.Locale;
 
@@ -20,12 +20,13 @@ import java.util.Locale;
  * A {@link android.support.v4.app.FragmentPagerAdapter} that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter implements onBuzzingListItemClicked {
+public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 
     private final MainView mMainView;
     private DetailView mDetailView;
     private BuzzingView mBuzzingView;
+    private TweetsView mTweetsView;
 
     public SectionsPagerAdapter(FragmentManager fm, MainView mainView) {
         super(fm);
@@ -35,17 +36,21 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter implements onBuzz
     @Override
     public Fragment getItem(int position) {
         switch (position) {
+            case 0:
+                return createBuzzingView();
             case 1:
                 return createDetailView();
+            case 2:
+                return createTweetsView();
             default:
-                return createBuzzingView();
-
+                return null;
         }
     }
 
     private DetailView createDetailView() {
         if (mDetailView == null) {
             mDetailView = new DetailView();
+            mMainView.addBuzzingDetailsObserver(mDetailView);
         }
         return mDetailView;
     }
@@ -57,9 +62,17 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter implements onBuzz
         return mBuzzingView;
     }
 
+    private TweetsView createTweetsView() {
+        if (mTweetsView == null) {
+            mTweetsView = new TweetsView();
+            mMainView.addBuzzingDetailsObserver(mTweetsView);
+        }
+        return mTweetsView;
+    }
+
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -70,13 +83,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter implements onBuzz
                 return mMainView.getString(R.string.title_section1).toUpperCase(l);
             case 1:
                 return mMainView.getString(R.string.title_section2).toUpperCase(l);
+            case 2:
+                return mMainView.getString(R.string.title_section3).toUpperCase(l);
+            default:
+                return null;
         }
-        return null;
-    }
-
-    @Override
-    public void onBuzzingItemSelected(float buzzingId) {
-        mDetailView.onBuzzingItemSelected(buzzingId);
     }
 }
 

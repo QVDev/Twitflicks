@@ -12,14 +12,16 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.qvdev.apps.twitflick.Presenter.DetailPresenter;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.api.models.BuzzingDetail;
-import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
 import com.squareup.picasso.Picasso;
+
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by dirkwilmer on 7/29/13.
  */
 
-public class DetailView extends YouTubePlayerSupportFragment implements onBuzzingListItemClicked {
+public class DetailView extends YouTubePlayerSupportFragment implements Observer {
     private DetailPresenter mDetailPresenter;
 
     private ImageView mPoster;
@@ -40,7 +42,6 @@ public class DetailView extends YouTubePlayerSupportFragment implements onBuzzin
         super.onActivityCreated(savedInstanceState);
         mDetailPresenter = new DetailPresenter(this);
         initLayout();
-        mDetailPresenter.restoreState(savedInstanceState);
     }
 
     private void initLayout() {
@@ -60,13 +61,7 @@ public class DetailView extends YouTubePlayerSupportFragment implements onBuzzin
     }
 
     @Override
-    public void onBuzzingItemSelected(float buzzingId) {
-        mDetailPresenter.getDetail(buzzingId);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState = mDetailPresenter.saveState(outState);
-        super.onSaveInstanceState(outState);
+    public void update(Observable observable, Object buzzingDetails) {
+        mDetailPresenter.update((BuzzingDetail) buzzingDetails);
     }
 }

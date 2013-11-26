@@ -10,6 +10,8 @@ import com.qvdev.apps.twitflick.Presenter.MainPresenter;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
 
+import java.util.Observer;
+
 public class MainView extends FragmentActivity implements onBuzzingListItemClicked {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -27,6 +29,7 @@ public class MainView extends FragmentActivity implements onBuzzingListItemClick
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(2);
 
         mMainPresenter = new MainPresenter(this);
     }
@@ -40,7 +43,7 @@ public class MainView extends FragmentActivity implements onBuzzingListItemClick
     @Override
     public void onBuzzingItemSelected(float buzzingId) {
         mViewPager.setCurrentItem(1);
-        mSectionsPagerAdapter.onBuzzingItemSelected(buzzingId);
+        mMainPresenter.getBuzzingDetails(buzzingId);
     }
 
     @Override
@@ -52,5 +55,7 @@ public class MainView extends FragmentActivity implements onBuzzingListItemClick
         }
     }
 
-
+    public void addBuzzingDetailsObserver(Observer detailView) {
+        mMainPresenter.addBuzzingDetailsObserver(detailView);
+    }
 }

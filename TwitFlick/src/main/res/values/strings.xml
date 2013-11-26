@@ -2,9 +2,11 @@
 <resources>
 
     <string name="app_name">"TwitFlick "</string>
+    
     <string name="action_settings">Settings</string>
     <string name="title_section1">Buzzing</string>
     <string name="title_section2">Details</string>
+    <string name="title_section3">Tweets</string>
 
     <string name="share_like">I love %1$s. What an amazing flick! #twitflicks #movie
         http://www.twitflicks.com/movie/%2$s via @drahtwerk

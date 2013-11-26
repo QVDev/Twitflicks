@@ -4,11 +4,12 @@ import com.qvdev.apps.twitflick.api.models.Buzzing;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Created by dirkwilmer on 7/29/13.
  */
-public class BuzzingModel {
+public class BuzzingModel extends Observable{
 
     private List<Buzzing> mBuzzing = new LinkedList<Buzzing>();
 
