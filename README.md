@@ -11,6 +11,10 @@ DeployGate
 ===============
 Help us testing after every successfull build via DeployGate https://dply.me/y6dkrt
 
+Progress
+===============
+[![Stories in Ready](https://badge.waffle.io/QVDev/Twitflicks.png?label=ready)](http://waffle.io/QVDev/Twitflicks)
+
 Screenshots
 ===============
 ![Alt text](/screens/device-2013-08-14-002344.png "Movies buzzing view")
