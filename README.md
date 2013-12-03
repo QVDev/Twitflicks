@@ -32,3 +32,5 @@ Screenshots
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/QVDev/twitflicks/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/847c2e7bda39e811e9cfe1089b39f1cb "githalytics.com")](http://githalytics.com/QVDev/Twitflicks)
+
