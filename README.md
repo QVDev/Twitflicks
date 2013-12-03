@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/QVDev/Twitflicks.png?label=ready)](https://waffle.io/QVDev/Twitflicks)  
 Twitflicks
 ==========
 
