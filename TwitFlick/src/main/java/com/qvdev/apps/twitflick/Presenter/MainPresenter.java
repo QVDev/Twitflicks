@@ -39,7 +39,7 @@ public class MainPresenter implements onBuzzingDetailsResultListener {
         URL url = null;
         try {
 
-            url = new URL("" + mMainView.getString(R.string.base_url) + mMainView.getString(R.string.api_url) + mMainView.getString(R.string.buzzing_detail_url) + (int) movieId);
+            url = new URL("" + mMainView.getString(R.string.base_url) + mMainView.getString(R.string.api_url) + mMainView.getString(R.string.buzzing_detail_url) + (int) movieId + "&count=150");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
