@@ -17,6 +17,7 @@ public class DetailPresenter implements YouTubePlayer.OnInitializedListener {
 
     private DetailView mDetailView;
     private YouTubePlayer mYoutubePlayer;
+    private String mCurrentVideoId;
 
     public DetailPresenter(DetailView detailView) {
         mDetailView = detailView;
@@ -42,15 +43,19 @@ public class DetailPresenter implements YouTubePlayer.OnInitializedListener {
                                         boolean wasRestored) {
         mYoutubePlayer = player;
         configureYoutubePlayer();
-        playVideo("");
+        playVideo(null);
     }
 
     private void playVideo(String trailerId) {
 
+        if (trailerId != null) {
+            mCurrentVideoId = getVideoId(trailerId);
+        }
+
         if (mYoutubePlayer == null) {
             initYoutubeTrailerFragment();
         } else {
-            mYoutubePlayer.cueVideo(getVideoId(trailerId));
+            mYoutubePlayer.cueVideo(mCurrentVideoId);
         }
     }
 
