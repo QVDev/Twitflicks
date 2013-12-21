@@ -9,9 +9,13 @@
 
     <ToggleButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:text="New ToggleButton"
-        android:id="@+id/toggle_tweets_button"/>
+        android:background="@drawable/toggle_button"
+        android:textOn="Positive Tweets"
+        android:textOff="Negative Tweets"
+        android:textColor="@android:color/white"
+        android:id="@+id/toggle_tweets_button" />
 
     <GridView
         android:id="@+id/gridLayout_tweets"
