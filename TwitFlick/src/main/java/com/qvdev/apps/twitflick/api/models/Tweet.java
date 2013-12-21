@@ -1,10 +1,9 @@
 package com.qvdev.apps.twitflick.api.models;
 
 /**
- * Created by dirkwilmer on 10/8/13.
+ * Created by dirkwilmer on 12/21/13.
  */
-
-public class Negative {
+public class Tweet {
     private float Weight;
     private String Username;
     private String Image;
@@ -50,5 +49,6 @@ public class Negative {
     public void setDate(String Date) {
         this.Date = Date;
     }
+
 
 }

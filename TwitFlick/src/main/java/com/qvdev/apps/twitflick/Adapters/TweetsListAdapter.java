@@ -11,18 +11,25 @@ import android.widget.TextView;
 
 import com.qvdev.apps.twitflick.Model.TweetsModel;
 import com.qvdev.apps.twitflick.R;
+import com.qvdev.apps.twitflick.api.models.Tweet;
 import com.qvdev.apps.twitflick.utils.CircleTransform;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class TweetsListAdapter extends BaseAdapter {
+
+    public enum Kind {
+        POSITIVE, NEGATIVE
+    }
 
     private final TweetsModel mTweetsModel;
     private Context mContext;
-    private int mResourceLayoutId;
+    private int mResourcePositiveLayoutId;
+    private int mResourceNegativeLayoutId;
 
-    /**
-     * Viewholder used for smooth scrolling
-     */
+    public Kind kind = Kind.NEGATIVE;
+
     public static class BuzzingViewHolder {
 
         public ImageButton userImage;
@@ -31,20 +38,13 @@ public class TweetsListAdapter extends BaseAdapter {
         public int position;
     }
 
-
-    /**
-     * Constructor for Folder Content List Adapter.
-     *
-     * @param context          - Views context
-     * @param resourceLayoutId - The resource layout that the listview cells should use
-     * @param model            - List<BuzzingModel> - Items that the adapter should use
-     */
-    public TweetsListAdapter(Context context, int resourceLayoutId, TweetsModel model) {
+    public TweetsListAdapter(Context context, int resourcePositiveLayoutId, int resourceNegativeLayoutId, TweetsModel model) {
         super();
 
         mContext = context;
         mTweetsModel = model;
-        mResourceLayoutId = resourceLayoutId;
+        mResourcePositiveLayoutId = resourcePositiveLayoutId;
+        mResourceNegativeLayoutId = resourceNegativeLayoutId;
     }
 
 
@@ -54,7 +54,7 @@ public class TweetsListAdapter extends BaseAdapter {
 
         if (v == null) {
             LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = li.inflate(mResourceLayoutId, parent, false);
+            v = li.inflate(getLayout(), parent, false);
 
             viewHolder = new BuzzingViewHolder();
 
@@ -69,13 +69,13 @@ public class TweetsListAdapter extends BaseAdapter {
         }
 
         if (viewHolder.userName != null)
-            viewHolder.userName.setText(mTweetsModel.getPositives().get(position).getUsername());
+            viewHolder.userName.setText(getCorrectModel().get(position).getUsername());
 
         if (viewHolder.userText != null)
-            viewHolder.userText.setText(mTweetsModel.getPositives().get(position).getText());
+            viewHolder.userText.setText(getCorrectModel().get(position).getText());
 
         if (viewHolder.userImage != null) {
-            String imageUrl = mTweetsModel.getPositives().get(position).getImage();
+            String imageUrl = getCorrectModel().get(position).getImage();
             Picasso.with(v.getContext()).load(imageUrl).transform(new CircleTransform()).placeholder(android.R.drawable.ic_menu_gallery).into(viewHolder.userImage);
         }
 
@@ -84,17 +84,75 @@ public class TweetsListAdapter extends BaseAdapter {
         return v;
     }
 
+    private List<Tweet> getCorrectModel() {
+        switch (kind) {
+            case POSITIVE:
+                return mTweetsModel.getPositives();
+            case NEGATIVE:
+                return mTweetsModel.getNegatives();
+            default:
+                return null;
+        }
+    }
+
+    private int getLayout() {
+        switch (kind) {
+            case POSITIVE:
+                return mResourcePositiveLayoutId;
+            case NEGATIVE:
+                return mResourceNegativeLayoutId;
+            default:
+                return mResourcePositiveLayoutId;
+        }
+    }
+
     public int getCount() {
-        return mTweetsModel.getPositives().size();
+        switch (kind) {
+            case POSITIVE:
+                return mTweetsModel.getPositives().size();
+            case NEGATIVE:
+                return mTweetsModel.getNegatives().size();
+            default:
+                return 0;
+        }
+
+
     }
 
     public Object getItem(int position) {
-        return mTweetsModel.getPositives().get(position);
+        switch (kind) {
+            case POSITIVE:
+                return mTweetsModel.getPositives().get(position);
+            case NEGATIVE:
+                return mTweetsModel.getNegatives().get(position);
+            default:
+                return null;
+        }
+
     }
 
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+
+    @Override
+    public int getViewTypeCount() {
+        return Kind.values().length;
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        switch (kind) {
+            case POSITIVE:
+                return Kind.POSITIVE.ordinal();
+            case NEGATIVE:
+                return Kind.NEGATIVE.ordinal();
+            default:
+                return Kind.POSITIVE.ordinal();
+        }
     }
 
 }

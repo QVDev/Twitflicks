@@ -15,9 +15,9 @@ public class BuzzingDetail {
 
     private com.qvdev.apps.twitflick.api.models.Movie Movie;
 
-    private List<Positive> Positives = new ArrayList<Positive>();
+    private List<Tweet> Positives = new ArrayList<Tweet>();
 
-    private List<Negative> Negatives = new ArrayList<Negative>();
+    private List<Tweet> Negatives = new ArrayList<Tweet>();
 
     public float getID() {
         return ID;
@@ -43,19 +43,19 @@ public class BuzzingDetail {
         this.Movie = Movie;
     }
 
-    public List<Positive> getPositives() {
+    public List<Tweet> getPositives() {
         return Positives;
     }
 
-    public void setPositives(List<Positive> Positives) {
+    public void setPositives(List<Tweet> Positives) {
         this.Positives = Positives;
     }
 
-    public List<Negative> getNegatives() {
+    public List<Tweet> getNegatives() {
         return Negatives;
     }
 
-    public void setNegatives(List<Negative> Negatives) {
+    public void setNegatives(List<Tweet> Negatives) {
         this.Negatives = Negatives;
     }
 

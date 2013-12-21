@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".MainActivity$DummySectionFragment">
+
+    <ImageButton
+        android:id="@+id/tweet_user_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        android:background="@android:color/transparent"
+        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Title"
+        android:textStyle="bold"
+        android:paddingTop="20dp"
+        android:textColor="@android:color/black"
+        android:layout_toLeftOf="@id/tweet_user_icon"
+        android:gravity="center_vertical"
+        android:id="@+id/tweets_username" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Tweet..."
+        android:textColor="@android:color/black"
+        android:layout_toLeftOf="@id/tweet_user_icon"
+        android:layout_below="@id/tweets_username"
+        android:background="@drawable/tweets_background_reverse"
+        android:gravity="bottom"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:id="@+id/tweets_text" />
+
+
+</RelativeLayout>

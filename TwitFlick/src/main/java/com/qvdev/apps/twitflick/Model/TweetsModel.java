@@ -1,7 +1,6 @@
 package com.qvdev.apps.twitflick.Model;
 
-import com.qvdev.apps.twitflick.api.models.Negative;
-import com.qvdev.apps.twitflick.api.models.Positive;
+import com.qvdev.apps.twitflick.api.models.Tweet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,22 +10,22 @@ import java.util.List;
  */
 public class TweetsModel {
 
-    private List<Positive> mPositives = new ArrayList<Positive>();
-    private List<Negative> mNegatives = new ArrayList<Negative>();
+    private List<Tweet> mPositives = new ArrayList<Tweet>();
+    private List<Tweet> mNegatives = new ArrayList<Tweet>();
 
-    public List<Positive> getPositives() {
+    public List<Tweet> getPositives() {
         return mPositives;
     }
 
-    public void setPositives(List<Positive> positives) {
+    public void setPositives(List<Tweet> positives) {
         mPositives = positives;
     }
 
-    public List<Negative> getNegatives() {
+    public List<Tweet> getNegatives() {
         return mNegatives;
     }
 
-    public void setNegatives(List<Negative> negatives) {
+    public void setNegatives(List<Tweet> negatives) {
         mNegatives = negatives;
     }
 }

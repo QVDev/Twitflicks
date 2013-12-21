@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ToggleButton;
 
 import com.qvdev.apps.twitflick.Adapters.TweetsListAdapter;
 import com.qvdev.apps.twitflick.Presenter.TweetsPresenter;
@@ -22,6 +23,7 @@ public class TweetsView extends Fragment implements Observer {
 
     private TweetsPresenter mTweetsPresenter;
     private GridView mTweetsGridView;
+    private ToggleButton mToggleTweetsButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,11 +36,17 @@ public class TweetsView extends Fragment implements Observer {
 
     private void initLayout(View rootView) {
         mTweetsGridView = (GridView) rootView.findViewById(R.id.gridLayout_tweets);
+        mToggleTweetsButton = (ToggleButton) rootView.findViewById(R.id.toggle_tweets_button);
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mTweetsPresenter = new TweetsPresenter(this);
+        initListeners();
+    }
+
+    private void initListeners() {
+        mToggleTweetsButton.setOnClickListener(mTweetsPresenter);
     }
 
     public void setAdapter(TweetsListAdapter adapter) {
