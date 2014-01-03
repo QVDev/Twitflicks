@@ -29,6 +29,9 @@ Screenshots
 ![Alt text](/screens/device-2013-11-21-231053.png "New design Details with youtube integration")
 ![Alt text](/screens/device-2013-11-26-225624.png "Pull to refresh loading indicator")
 ![Alt text](/screens/device-2013-11-26-225705.png "Show movie related tweets")
+![Alt text](/screens/device-2014-01-03-160746.png "Tablet landscape mode multi columns")
+![Alt text](/screens/device-2014-01-03-160836.png "Tablet portrait mode multi columns")
+![Alt text](/screens/device-2014-01-03-160928.png "Phone landscape mode multi columns")
 
 
 
