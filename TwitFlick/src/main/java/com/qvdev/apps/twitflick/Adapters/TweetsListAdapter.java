@@ -28,7 +28,7 @@ public class TweetsListAdapter extends BaseAdapter {
     private int mResourcePositiveLayoutId;
     private int mResourceNegativeLayoutId;
 
-    public Kind kind = Kind.NEGATIVE;
+    public Kind kind = Kind.POSITIVE;
 
     public static class BuzzingViewHolder {
 
