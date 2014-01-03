@@ -72,19 +72,16 @@ public class NetworkHelper {
                         buzzingResult = mGSon.fromJson(reader, listType);
                     } catch (Exception e) {
                         Log.d("APP", "Exception" + e);
-                        mBuzzingResultListener.onBuzzingRetrievalFailed();
                     }
 
                 } else {
                     Log.e(Gson.class.toString(), "Failed to download file");
-                    mBuzzingResultListener.onBuzzingRetrievalFailed();
                 }
             } catch (ClientProtocolException e) {
                 e.printStackTrace();
-                mBuzzingResultListener.onBuzzingRetrievalFailed();
             } catch (IOException e) {
                 e.printStackTrace();
-                mBuzzingResultListener.onBuzzingRetrievalFailed();
+
             }
 
             return buzzingResult;
@@ -102,6 +99,8 @@ public class NetworkHelper {
         protected void onPostExecute(List<Buzzing> result) {
             if (result != null) {
                 mBuzzingResultListener.onBuzzingRetrievalSuccess(result);
+            } else {
+                mBuzzingResultListener.onBuzzingRetrievalFailed();
             }
         }
     };
@@ -131,19 +130,16 @@ public class NetworkHelper {
                         buzzingDetailResult = mGSon.fromJson(reader, listType);
                     } catch (Exception e) {
                         Log.d("APP", "Exception" + e);
-                        mBuzzingDetailsResultListener.onBuzzingRetrievalFailed();
                     }
 
                 } else {
                     Log.e(Gson.class.toString(), "Failed to download file");
-                    mBuzzingDetailsResultListener.onBuzzingRetrievalFailed();
                 }
             } catch (ClientProtocolException e) {
                 e.printStackTrace();
-                mBuzzingDetailsResultListener.onBuzzingRetrievalFailed();
             } catch (IOException e) {
                 e.printStackTrace();
-                mBuzzingDetailsResultListener.onBuzzingRetrievalFailed();
+
             }
 
             return buzzingDetailResult;
@@ -161,6 +157,8 @@ public class NetworkHelper {
         protected void onPostExecute(BuzzingDetail result) {
             if (result != null) {
                 mBuzzingDetailsResultListener.onBuzzingRetrievalSuccess(result);
+            } else {
+                mBuzzingDetailsResultListener.onBuzzingRetrievalFailed();
             }
         }
     };

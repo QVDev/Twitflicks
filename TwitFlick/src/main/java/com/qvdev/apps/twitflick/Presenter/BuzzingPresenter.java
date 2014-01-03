@@ -103,6 +103,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     @Override
     public void onBuzzingRetrievalFailed() {
         Toast.makeText(mBuzzingView.getActivity(), "Failed to fetch data", Toast.LENGTH_LONG).show();
+        mBuzzingView.onRefreshFinished();
     }
 
     public void refresh(List<Buzzing> result) {

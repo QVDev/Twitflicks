@@ -1,7 +1,6 @@
 package com.qvdev.apps.twitflick.Presenter;
 
 import android.view.View;
-import android.widget.Toast;
 
 import com.qvdev.apps.twitflick.Adapters.TweetsListAdapter;
 import com.qvdev.apps.twitflick.Model.TweetsModel;
@@ -32,7 +31,6 @@ public class TweetsPresenter implements View.OnClickListener {
 
 
     public void update(BuzzingDetail buzzingDetail) {
-        Toast.makeText(mTweetsView.getActivity(), "Tweets::" + buzzingDetail.getMovie().getName(), Toast.LENGTH_LONG).show();
         mTweetsModel.setNegatives(buzzingDetail.getNegatives());
         mTweetsModel.setPositives(buzzingDetail.getPositives());
 
