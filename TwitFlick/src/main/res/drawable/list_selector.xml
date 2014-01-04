@@ -1,7 +1,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
         android:state_pressed="true"
-        android:drawable="@color/orange" />
+        android:drawable="@color/cadetblue" />
     <item
         android:drawable="@android:color/transparent" />
 </selector>
