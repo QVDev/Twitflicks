@@ -20,4 +20,6 @@ public class BuzzingModel extends Observable{
     public void setBuzzing(List<Buzzing> mBuzzing) {
         this.mBuzzing = mBuzzing;
     }
+
+    public int popupPosition;
 }

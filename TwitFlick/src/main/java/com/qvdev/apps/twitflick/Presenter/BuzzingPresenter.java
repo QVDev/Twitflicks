@@ -34,7 +34,6 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     private BuzzingListAdapter mBuzzingListAdapter;
 
     private onBuzzingListItemClicked mExternalItemListener;
-    private int mPopupPosition;
 
     public BuzzingPresenter(BuzzingView buzzingView) {
         mBuzzingView = buzzingView;
@@ -72,7 +71,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
 
     @Override
     public void onPopupClicked(View view, int position) {
-        mPopupPosition = position;
+        mBuzzingModel.popupPosition = position;
 
         PopupMenu popup = new PopupMenu(mBuzzingView.getActivity(), view);
         popup.setOnMenuItemClickListener(this);
@@ -84,10 +83,10 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     public boolean onMenuItemClick(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.share_like:
-                onLikeClicked(mPopupPosition);
+                onLikeClicked(mBuzzingModel.popupPosition);
                 return true;
             case R.id.share_dislike:
-                onHateClicked(mPopupPosition);
+                onHateClicked(mBuzzingModel.popupPosition);
                 return true;
             default:
                 return false;

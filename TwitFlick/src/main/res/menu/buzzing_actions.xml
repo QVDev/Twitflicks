@@ -2,8 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/share_like"
-        android:title="Share Like" />
+        android:title="Share Like"
+        android:icon="@android:drawable/ic_menu_share" />
     <item
         android:id="@+id/share_dislike"
-        android:title="Share Dislike" />
+        android:title="Share Dislike"
+        android:icon="@android:drawable/ic_menu_share" />
 </menu>
