@@ -2,6 +2,9 @@ package com.qvdev.apps.twitflick.Presenter;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
@@ -9,10 +12,10 @@ import com.qvdev.apps.twitflick.Model.BuzzingModel;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.View.BuzzingView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
-import com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
 import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
 import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
+import com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.libs.Refreshbar.RefreshBarListener;
 
 import java.net.MalformedURLException;
@@ -22,7 +25,7 @@ import java.util.List;
 /**
  * Created by dirkwilmer on 7/29/13.
  */
-public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemClickedListener, RefreshBarListener {
+public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemClickedListener, RefreshBarListener, PopupMenu.OnMenuItemClickListener {
 
     private static final String FORCE_FULLSCREEN = "force_fullscreen";
 
@@ -31,6 +34,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     private BuzzingListAdapter mBuzzingListAdapter;
 
     private onBuzzingListItemClicked mExternalItemListener;
+    private int mPopupPosition;
 
     public BuzzingPresenter(BuzzingView buzzingView) {
         mBuzzingView = buzzingView;
@@ -65,6 +69,31 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
         intent.putExtra(FORCE_FULLSCREEN, true);
         mBuzzingView.startActivity(intent);
     }
+
+    @Override
+    public void onPopupClicked(View view, int position) {
+        mPopupPosition = position;
+
+        PopupMenu popup = new PopupMenu(mBuzzingView.getActivity(), view);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.buzzing_actions);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.share_like:
+                onLikeClicked(mPopupPosition);
+                return true;
+            case R.id.share_dislike:
+                onHateClicked(mPopupPosition);
+                return true;
+            default:
+                return false;
+        }
+    }
+
 
     @Override
     public void onLikeClicked(int position) {

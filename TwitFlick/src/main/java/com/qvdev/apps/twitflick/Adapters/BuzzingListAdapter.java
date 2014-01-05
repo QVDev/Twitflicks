@@ -38,6 +38,7 @@ public class BuzzingListAdapter extends BaseAdapter {
         public ImageButton playTrailerButton;
         public ImageButton tweetLikeButton;
         public ImageButton tweetHateButton;
+        public ImageButton popupMenuButton;
         public int position;
     }
 
@@ -76,6 +77,7 @@ public class BuzzingListAdapter extends BaseAdapter {
             viewHolder.itemTweetsTotal = (TextView) v.findViewById(R.id.buzzingTotal);
             viewHolder.itemInfoButton = (ImageButton) v.findViewById(R.id.itemInformation);
             viewHolder.itemRating = (RatingBar) v.findViewById(R.id.buzzingRating);
+            viewHolder.popupMenuButton = (ImageButton) v.findViewById(R.id.buzzing_popup_menu);
 
             if (viewHolder.playTrailerButton != null) {
                 viewHolder.playTrailerButton = (ImageButton) v.findViewById(R.id.playTrailerButton);
@@ -90,6 +92,11 @@ public class BuzzingListAdapter extends BaseAdapter {
             if (viewHolder.tweetHateButton != null) {
                 viewHolder.tweetHateButton = (ImageButton) v.findViewById(R.id.tweetHateButton);
                 setButtonOnClickListener(viewHolder.tweetHateButton);
+            }
+
+            if (viewHolder.popupMenuButton != null) {
+                viewHolder.popupMenuButton = (ImageButton) v.findViewById(R.id.buzzing_popup_menu);
+                setButtonOnClickListener(viewHolder.popupMenuButton);
             }
 
             v.setTag(viewHolder);
@@ -125,6 +132,8 @@ public class BuzzingListAdapter extends BaseAdapter {
             viewHolder.tweetLikeButton.setTag(position);
         if (viewHolder.tweetHateButton != null)
             viewHolder.tweetHateButton.setTag(position);
+        if (viewHolder.popupMenuButton != null)
+            viewHolder.popupMenuButton.setTag(position);
 
         viewHolder.position = position;
         setButtonOnClickListener(v);
@@ -146,6 +155,9 @@ public class BuzzingListAdapter extends BaseAdapter {
                             break;
                         case R.id.tweetHateButton:
                             mListener.onHateClicked((Integer) view.getTag());
+                            break;
+                        case R.id.buzzing_popup_menu:
+                            mListener.onPopupClicked(view, (Integer) view.getTag());
                             break;
                         default:
                             BuzzingViewHolder buzzing = (BuzzingViewHolder) view.getTag();
