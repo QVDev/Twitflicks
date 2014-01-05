@@ -41,12 +41,14 @@
         <RatingBar
             android:id="@+id/detail_rating"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
+            android:layout_height="4dp"
+            android:isIndicator="true"
             android:stepSize="0.1"
-            android:numStars="5"
+            android:numStars="4"
+            android:rating="2.5"
             android:layout_gravity="center"
-            style="?android:attr/ratingBarStyleSmall" />
+            style="@style/StrippedRatingBar"
+            />
 
     </LinearLayout>
 
