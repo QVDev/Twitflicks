@@ -26,9 +26,16 @@ public class TweetsView extends Fragment implements Observer {
     private ToggleButton mToggleTweetsButton;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
         View rootView = inflater.inflate(R.layout.fragment_main_tweets, container, false);
         initLayout(rootView);
         return rootView;
@@ -41,7 +48,12 @@ public class TweetsView extends Fragment implements Observer {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mTweetsPresenter = new TweetsPresenter(this);
+
+        if (mTweetsPresenter == null) {
+            mTweetsPresenter = new TweetsPresenter(this);
+        } else {
+            mTweetsPresenter.resumed();
+        }
         initListeners();
     }
 
@@ -56,9 +68,5 @@ public class TweetsView extends Fragment implements Observer {
     @Override
     public void update(Observable observable, Object buzzingDetails) {
         mTweetsPresenter.update((BuzzingDetail) buzzingDetails);
-    }
-
-    public void setName(String name) {
-
     }
 }

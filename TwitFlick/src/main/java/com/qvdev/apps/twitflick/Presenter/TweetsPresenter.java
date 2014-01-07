@@ -18,6 +18,7 @@ public class TweetsPresenter implements View.OnClickListener {
     private TweetsModel mTweetsModel;
 
     public TweetsPresenter(TweetsView view) {
+
         mTweetsView = view;
         mTweetsModel = new TweetsModel();
 
@@ -29,6 +30,9 @@ public class TweetsPresenter implements View.OnClickListener {
         mTweetsView.setAdapter(mTweetsListAdapter);
     }
 
+    public void resumed() {
+        mTweetsView.setAdapter(mTweetsListAdapter);
+    }
 
     public void update(BuzzingDetail buzzingDetail) {
         mTweetsModel.setNegatives(buzzingDetail.getNegatives());
