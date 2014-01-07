@@ -68,6 +68,11 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
         mExternalItemListener = (onBuzzingListItemClicked) mBuzzingView.getActivity();
     }
 
+    public void resumed() {
+        mBuzzingView.setAdapter(mBuzzingListAdapter);
+        mExternalItemListener = (onBuzzingListItemClicked) mBuzzingView.getActivity();
+    }
+
 
     private void getBuzzing() {
         NetworkHelper networkHelper = new NetworkHelper();

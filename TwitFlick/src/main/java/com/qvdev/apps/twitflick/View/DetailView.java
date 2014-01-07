@@ -32,6 +32,11 @@ public class DetailView extends YouTubePlayerSupportFragment implements Observer
     private RatingBar mRating;
     private YouTubeThumbnailView mVideoThumbnail;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +48,12 @@ public class DetailView extends YouTubePlayerSupportFragment implements Observer
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mDetailPresenter = new DetailPresenter(this);
+        if (mDetailPresenter == null) {
+            mDetailPresenter = new DetailPresenter(this);
+        } else {
+
+        }
+
         initLayout();
     }
 

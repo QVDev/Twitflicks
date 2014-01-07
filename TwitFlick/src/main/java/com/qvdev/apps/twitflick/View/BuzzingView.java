@@ -21,6 +21,13 @@ public class BuzzingView extends Fragment {
     private GridView mBuzzingGridView;
     private RefreshBar mRefreshBar;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,7 +44,12 @@ public class BuzzingView extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mBuzzingPresenter = new BuzzingPresenter(this);
+        if (mBuzzingPresenter == null) {
+            mBuzzingPresenter = new BuzzingPresenter(this);
+        } else {
+            mBuzzingPresenter.resumed();
+        }
+
         initRefreshBar();
     }
 
