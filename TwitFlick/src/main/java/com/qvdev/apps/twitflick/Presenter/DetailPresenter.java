@@ -1,6 +1,7 @@
 package com.qvdev.apps.twitflick.Presenter;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
@@ -18,6 +19,7 @@ public class DetailPresenter implements YouTubeThumbnailView.OnInitializedListen
     private String mCurrentVideoId;
     private DetailView mDetailView;
     private YouTubeThumbnailLoader mThumbnailLoader;
+    private BuzzingDetail mBuzzingDetails;
 
     public DetailPresenter(DetailView detailView) {
         mDetailView = detailView;
@@ -35,13 +37,19 @@ public class DetailPresenter implements YouTubeThumbnailView.OnInitializedListen
     private void loadVideoThumbnail(String trailerId) {
         if (trailerId != null && mThumbnailLoader != null) {
             mCurrentVideoId = getVideoId(trailerId);
-            mThumbnailLoader.setVideo(mCurrentVideoId);
+            try {
+                mThumbnailLoader.setVideo(mCurrentVideoId);
+            } catch (IllegalStateException e) {
+                Log.d("App", "Youtube failure https://code.google.com/p/gdata-issues/issues/detail?id=5431" + e.getMessage());
+            }
         }
     }
 
     public void update(BuzzingDetail buzzingDetails) {
-        mDetailView.setMovieInfo(buzzingDetails);
-        loadVideoThumbnail(buzzingDetails.getMovie().getTrailer());
+        mBuzzingDetails = buzzingDetails;
+
+        mDetailView.setMovieInfo(mBuzzingDetails);
+        loadVideoThumbnail(mBuzzingDetails.getMovie().getTrailer());
     }
 
     @Override
@@ -66,5 +74,11 @@ public class DetailPresenter implements YouTubeThumbnailView.OnInitializedListen
     public void trailerClicked() {
         Intent intent = YouTubeStandalonePlayer.createVideoIntent(mDetailView.getActivity(), DeveloperKey.DEVELOPER_KEY, mCurrentVideoId);
         mDetailView.startActivity(intent);
+    }
+
+    public void resumed() {
+        if (mBuzzingDetails != null) {
+            update(mBuzzingDetails);
+        }
     }
 }

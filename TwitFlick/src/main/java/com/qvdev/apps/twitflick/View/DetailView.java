@@ -1,5 +1,6 @@
 package com.qvdev.apps.twitflick.View;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,9 +40,9 @@ public class DetailView extends YouTubePlayerSupportFragment implements Observer
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
         View rootView = inflater.inflate(R.layout.fragment_main_detail, container, false);
         return rootView;
     }
@@ -50,11 +51,11 @@ public class DetailView extends YouTubePlayerSupportFragment implements Observer
         super.onActivityCreated(savedInstanceState);
         if (mDetailPresenter == null) {
             mDetailPresenter = new DetailPresenter(this);
+            initLayout();
         } else {
-
+            initLayout();
+            mDetailPresenter.resumed();
         }
-
-        initLayout();
     }
 
     private void initLayout() {
@@ -63,9 +64,18 @@ public class DetailView extends YouTubePlayerSupportFragment implements Observer
         mSummary = (TextView) getActivity().findViewById(R.id.detail_summary);
         mRating = (RatingBar) getActivity().findViewById(R.id.detail_rating);
 
+        Drawable thumb = null;
+        if (mVideoThumbnail != null) {
+            thumb = mVideoThumbnail.getDrawable();
+        }
+
         mVideoThumbnail = (YouTubeThumbnailView) getActivity().findViewById(R.id.video_thumbnail);
         mVideoThumbnail.setOnClickListener(this);
         mVideoThumbnail.initialize(DeveloperKey.DEVELOPER_KEY, mDetailPresenter);
+
+        if (thumb != null) {
+            mVideoThumbnail.setImageDrawable(thumb);
+        }
     }
 
     public void setMovieInfo(BuzzingDetail buzzingDetail) {
