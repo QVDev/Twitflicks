@@ -32,6 +32,10 @@ Screenshots
 ![Alt text](/screens/device-2014-01-03-160746.png "Tablet landscape mode multi columns")
 ![Alt text](/screens/device-2014-01-03-160836.png "Tablet portrait mode multi columns")
 ![Alt text](/screens/device-2014-01-03-160928.png "Phone landscape mode multi columns")
+![Alt text](/screens/device-2014-01-07-205539.png "Tablet new layout")
+![Alt text](/screens/device-2014-01-07-205708.png "Phone pull to refresh indicator")
+![Alt text](/screens/device-2014-01-07-205730.png "Phone with new popup menu")
+![Alt text](/screens/device-2014-01-07-205858.png "Tablet popupmenu activated")
 
 
 
