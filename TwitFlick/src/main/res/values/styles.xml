@@ -3,6 +3,7 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
         <item name="android:popupMenuStyle">@style/BuzzingPopupMenu</item>
+        <item name="android:background">@color/white</item>
 
         <item name="android:textAppearanceSmallPopupMenu">@style/BuzzingPopupMenuTextAppearance
         </item>

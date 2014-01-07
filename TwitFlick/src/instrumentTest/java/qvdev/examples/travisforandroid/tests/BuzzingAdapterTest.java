@@ -30,7 +30,7 @@ public class BuzzingAdapterTest extends ActivityInstrumentationTestCase2<MainVie
 
         mBuzzingModel = new BuzzingModel();
         mBuzzingData = new ArrayList<Buzzing>();
-        mBuzzingAdapter = new BuzzingListAdapter(getActivity(), R.layout.buzzing_list_item, mBuzzingModel);
+        mBuzzingAdapter = new BuzzingListAdapter(getActivity(), R.layout.buzzing_list_circle_item, mBuzzingModel);
     }
 
     private void fillBuzzingData() {

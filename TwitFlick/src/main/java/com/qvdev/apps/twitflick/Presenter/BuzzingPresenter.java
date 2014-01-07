@@ -85,9 +85,6 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
         networkHelper.getBuzzing(this, new URL[]{url});
     }
 
-    @Override
-    public void onTrailerClicked(String url) {
-    }
 
     @Override
     public void onPopupClicked(View view, int position) {
@@ -114,14 +111,12 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     }
 
 
-    @Override
     public void onLikeClicked(int position) {
         Buzzing buzzing = mBuzzingModel.getBuzzing().get(position);
         String likeText = mBuzzingView.getString(R.string.share_like, buzzing.getName(), (int) buzzing.getID());
         share(likeText);
     }
 
-    @Override
     public void onHateClicked(int position) {
         Buzzing buzzing = mBuzzingModel.getBuzzing().get(position);
         String hateText = mBuzzingView.getString(R.string.share_hate, buzzing.getName(), (int) buzzing.getID());

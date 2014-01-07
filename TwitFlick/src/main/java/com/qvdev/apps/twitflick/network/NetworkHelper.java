@@ -89,10 +89,7 @@ public class NetworkHelper {
 
         @Override
         protected List<Buzzing> doInBackground(URL... urls) {
-
-            List<Buzzing> buzzingResult = getJson(urls[0]);
-
-            return buzzingResult;
+            return getJson(urls[0]);
         }
 
         @Override
@@ -147,10 +144,7 @@ public class NetworkHelper {
 
         @Override
         protected BuzzingDetail doInBackground(URL... urls) {
-
-            BuzzingDetail buzzingDetailResult = getJson(urls[0]);
-
-            return buzzingDetailResult;
+            return getJson(urls[0]);
         }
 
         @Override

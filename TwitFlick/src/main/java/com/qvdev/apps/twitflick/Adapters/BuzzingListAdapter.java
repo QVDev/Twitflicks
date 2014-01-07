@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
@@ -38,11 +37,6 @@ public class BuzzingListAdapter extends BaseAdapter {
         public TextView itemTweetsToday;
         public TextView itemTweetsTotal;
         public ImageButton itemPoster;
-        public RatingBar itemRating;
-        public ImageButton itemInfoButton;
-        public ImageButton playTrailerButton;
-        public ImageButton tweetLikeButton;
-        public ImageButton tweetHateButton;
         public ImageButton popupMenuButton;
         public int position;
     }
@@ -72,16 +66,8 @@ public class BuzzingListAdapter extends BaseAdapter {
             if (v == null) {
                 LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = li.inflate(R.layout.buzzing_item_pull, parent, false);
-
-                viewHolder = new BuzzingViewHolder();
-                v.setTag(viewHolder);
-            } else {
-                viewHolder = (BuzzingViewHolder) v.getTag();
             }
-            
         } else {
-
-
             if (v == null) {
                 LayoutInflater li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = li.inflate(mResourceLayoutId, parent, false);
@@ -94,24 +80,8 @@ public class BuzzingListAdapter extends BaseAdapter {
                 viewHolder.itemSummary = (TextView) v.findViewById(R.id.buzzingSummary);
                 viewHolder.itemTweetsToday = (TextView) v.findViewById(R.id.buzzingToday);
                 viewHolder.itemTweetsTotal = (TextView) v.findViewById(R.id.buzzingTotal);
-                viewHolder.itemInfoButton = (ImageButton) v.findViewById(R.id.itemInformation);
-                viewHolder.itemRating = (RatingBar) v.findViewById(R.id.buzzingRating);
                 viewHolder.popupMenuButton = (ImageButton) v.findViewById(R.id.buzzing_popup_menu);
 
-                if (viewHolder.playTrailerButton != null) {
-                    viewHolder.playTrailerButton = (ImageButton) v.findViewById(R.id.playTrailerButton);
-                    setButtonOnClickListener(viewHolder.playTrailerButton);
-                }
-
-                if (viewHolder.tweetLikeButton != null) {
-                    viewHolder.tweetLikeButton = (ImageButton) v.findViewById(R.id.tweetLikeButton);
-                    setButtonOnClickListener(viewHolder.tweetLikeButton);
-                }
-
-                if (viewHolder.tweetHateButton != null) {
-                    viewHolder.tweetHateButton = (ImageButton) v.findViewById(R.id.tweetHateButton);
-                    setButtonOnClickListener(viewHolder.tweetHateButton);
-                }
 
                 if (viewHolder.popupMenuButton != null) {
                     viewHolder.popupMenuButton = (ImageButton) v.findViewById(R.id.buzzing_popup_menu);
@@ -126,8 +96,6 @@ public class BuzzingListAdapter extends BaseAdapter {
 
             if (viewHolder.itemName != null)
                 viewHolder.itemName.setText(mBuzzingModel.getBuzzing().get(position).getName());
-            if (viewHolder.itemRating != null)
-                viewHolder.itemRating.setRating(mBuzzingModel.getBuzzing().get(position).getRating());
             if (viewHolder.itemSummary != null)
                 viewHolder.itemSummary.setText(mBuzzingModel.getBuzzing().get(position).getShortSynposis());
             if (viewHolder.itemTweetsToday != null)
@@ -141,16 +109,8 @@ public class BuzzingListAdapter extends BaseAdapter {
             }
 
 
-            if (viewHolder.itemInfoButton != null)
-                viewHolder.itemInfoButton.setTag(mBuzzingModel.getBuzzing().get(position).getID());
-            if (viewHolder.playTrailerButton != null)
-                viewHolder.playTrailerButton.setTag(mBuzzingModel.getBuzzing().get(position).getTrailer());
             if (viewHolder.itemPoster != null)
                 viewHolder.itemPoster.setTag(mBuzzingModel.getBuzzing().get(position).getTrailer());
-            if (viewHolder.tweetLikeButton != null)
-                viewHolder.tweetLikeButton.setTag(position);
-            if (viewHolder.tweetHateButton != null)
-                viewHolder.tweetHateButton.setTag(position);
             if (viewHolder.popupMenuButton != null)
                 viewHolder.popupMenuButton.setTag(position);
 
@@ -167,15 +127,6 @@ public class BuzzingListAdapter extends BaseAdapter {
             public void onClick(View view) {
                 if (mListener != null) {
                     switch (view.getId()) {
-                        case R.id.buzzingPoster:
-                            mListener.onTrailerClicked(view.getTag().toString());
-                            break;
-                        case R.id.tweetLikeButton:
-                            mListener.onLikeClicked((Integer) view.getTag());
-                            break;
-                        case R.id.tweetHateButton:
-                            mListener.onHateClicked((Integer) view.getTag());
-                            break;
                         case R.id.buzzing_popup_menu:
                             mListener.onPopupClicked(view, (Integer) view.getTag());
                             break;

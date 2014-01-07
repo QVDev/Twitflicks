@@ -3,7 +3,6 @@ package com.qvdev.apps.twitflick.View;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
 
 import com.qvdev.apps.twitflick.Adapters.SectionsPagerAdapter;
 import com.qvdev.apps.twitflick.Presenter.MainPresenter;
@@ -14,8 +13,6 @@ import java.util.Observer;
 
 public class MainView extends FragmentActivity implements onBuzzingListItemClicked {
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
     private ViewPager mViewPager;
     private MainPresenter mMainPresenter;
 
@@ -25,19 +22,13 @@ public class MainView extends FragmentActivity implements onBuzzingListItemClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(2);
 
         mMainPresenter = new MainPresenter(this);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }
 
     @Override

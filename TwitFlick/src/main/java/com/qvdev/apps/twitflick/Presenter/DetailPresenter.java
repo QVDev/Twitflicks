@@ -27,10 +27,8 @@ public class DetailPresenter implements YouTubeThumbnailView.OnInitializedListen
 
 
     private String getVideoId(String trailerUrl) {
-        String youtubeUrl = trailerUrl;
-        int startIndex = youtubeUrl.lastIndexOf("=") + 1;
-        String youtubeId = youtubeUrl.substring(startIndex, youtubeUrl.length());
-        return youtubeId;
+        int startIndex = trailerUrl.lastIndexOf("=") + 1;
+        return trailerUrl.substring(startIndex, trailerUrl.length());
     }
 
 
