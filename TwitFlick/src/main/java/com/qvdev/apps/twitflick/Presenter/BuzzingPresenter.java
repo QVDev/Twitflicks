@@ -1,7 +1,6 @@
 package com.qvdev.apps.twitflick.Presenter;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -83,9 +82,6 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
 
     @Override
     public void onTrailerClicked(String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        intent.putExtra(FORCE_FULLSCREEN, true);
-        mBuzzingView.startActivity(intent);
     }
 
     @Override

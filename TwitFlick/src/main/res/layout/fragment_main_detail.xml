@@ -15,11 +15,15 @@
 
         <include layout="@layout/detail_header" />
 
-        <fragment
-            android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
-            android:id="@+id/youtube_fragment"
+        <com.google.android.youtube.player.YouTubeThumbnailView
+            android:id="@+id/video_thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="200dp"
+            android:src="@android:drawable/ic_media_play"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:background="@color/black"/>
 
         <TextView
             android:id="@+id/detail_summary"
