@@ -163,4 +163,7 @@ public class NetworkHelper {
         }
     };
 
+    public List<Buzzing> getCachedBuzzing() {
+        return null;
+    }
 }

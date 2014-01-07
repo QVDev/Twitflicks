@@ -1,6 +1,8 @@
 
 package com.qvdev.apps.twitflick.api.models;
 
+import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
+
 public class Buzzing {
     private String Duration;
     private float ID;
@@ -93,4 +95,11 @@ public class Buzzing {
         TweetsToday = tweetsToday;
     }
 
+    public BuzzingListAdapter.BuzzingType getType() {
+        if (getTrailer() != null) {
+            return BuzzingListAdapter.BuzzingType.BUZZING;
+        } else {
+            return BuzzingListAdapter.BuzzingType.PULL;
+        }
+    }
 }

@@ -20,6 +20,7 @@ import com.qvdev.libs.Refreshbar.RefreshBarListener;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +41,24 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
         mBuzzingModel = new BuzzingModel();
 
         init();
+        getCachedBuzzing();
+    }
+
+    private void getCachedBuzzing() {
+        NetworkHelper networkHelper = new NetworkHelper();
+        List<Buzzing> buzzingList = networkHelper.getCachedBuzzing();
+
+        if (buzzingList != null) {
+            onBuzzingRetrievalSuccess(buzzingList);
+        } else {
+            Buzzing buzzer = new Buzzing();
+            buzzer.setName("Pull to fetch data");
+
+            buzzingList = new ArrayList<Buzzing>();
+            buzzingList.add(buzzer);
+
+            refresh(buzzingList);
+        }
     }
 
     private void init() {
