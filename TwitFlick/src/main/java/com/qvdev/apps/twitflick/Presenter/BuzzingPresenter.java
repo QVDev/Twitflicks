@@ -44,7 +44,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     }
 
     private void getCachedBuzzing() {
-        NetworkHelper networkHelper = new NetworkHelper();
+        NetworkHelper networkHelper = new NetworkHelper(mBuzzingView.getActivity());
         List<Buzzing> buzzingList = networkHelper.getCachedBuzzing();
 
         if (buzzingList != null) {
@@ -75,7 +75,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
 
 
     private void getBuzzing() {
-        NetworkHelper networkHelper = new NetworkHelper();
+        NetworkHelper networkHelper = new NetworkHelper(mBuzzingView.getActivity());
         URL url = null;
         try {
             url = new URL("" + mBuzzingView.getString(R.string.base_url) + mBuzzingView.getString(R.string.api_url) + mBuzzingView.getString(R.string.buzzing_url) + mBuzzingView.getString(R.string.buzzing_retrieve_count) + mBuzzingView.getString(R.string.buzzing_retrieve_limit));

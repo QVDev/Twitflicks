@@ -25,7 +25,7 @@ public class BuzzingNetworkingTest extends ActivityInstrumentationTestCase2<Main
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        mNetworkerHelper = new NetworkHelper();
+        mNetworkerHelper = new NetworkHelper(getInstrumentation().getTargetContext());
     }
 
     public void testActivityCreation() {

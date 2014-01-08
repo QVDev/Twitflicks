@@ -35,7 +35,7 @@ public class MainPresenter implements onBuzzingDetailsResultListener {
             return;
         }
 
-        NetworkHelper networkHelper = new NetworkHelper();
+        NetworkHelper networkHelper = new NetworkHelper(mMainView);
         URL url = null;
         try {
 

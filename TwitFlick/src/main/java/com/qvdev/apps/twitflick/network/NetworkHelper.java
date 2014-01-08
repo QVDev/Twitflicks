@@ -1,5 +1,6 @@
 package com.qvdev.apps.twitflick.network;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -16,8 +17,15 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -31,12 +39,18 @@ import java.util.List;
  */
 public class NetworkHelper {
 
+    private static final String FILE_NAME = "json.json";
     //TODO::Maybe implement VOLLEY?
     //http://blog.bignerdranch.com/3177-solving-the-android-image-loading-problem-volley-vs-picasso/
     //TODO::Think of a general Twitlfick api??
     private Gson mGSon = new Gson();
     private onBuzzingResultListener mBuzzingResultListener = null;
     private onBuzzingDetailsResultListener mBuzzingDetailsResultListener;
+    private Context mContext;
+
+    public NetworkHelper(Context context) {
+        mContext = context;
+    }
 
     public void getBuzzing(onBuzzingResultListener listener, URL[] urls) {
         mBuzzingResultListener = listener;
@@ -62,17 +76,25 @@ public class NetworkHelper {
                 int statusCode = statusLine.getStatusCode();
                 if (statusCode == 200) {
                     HttpEntity entity = response.getEntity();
-                    InputStream content = entity.getContent();
+                    BufferedHttpEntity bfEnt = new BufferedHttpEntity(entity);
 
-                    Reader reader = new InputStreamReader(content);
+                    InputStreamReader in = new InputStreamReader(bfEnt.getContent());
+                    BufferedReader readerTemp = new BufferedReader(in);
+
                     Type listType = new TypeToken<List<Buzzing>>() {
                     }.getType();
 
+
                     try {
-                        buzzingResult = mGSon.fromJson(reader, listType);
+                        buzzingResult = mGSon.fromJson(readerTemp, listType);
+
                     } catch (Exception e) {
                         Log.d("APP", "Exception" + e);
                     }
+
+                    InputStreamReader in2 = new InputStreamReader(bfEnt.getContent());
+                    BufferedReader readerTemp2 = new BufferedReader(in2);
+                    saveFilesystemConfiguration(readerTemp2);
 
                 } else {
                     Log.e(Gson.class.toString(), "Failed to download file");
@@ -158,6 +180,86 @@ public class NetworkHelper {
     };
 
     public List<Buzzing> getCachedBuzzing() {
-        return null;
+
+        List<Buzzing> buzzingResult = null;
+
+        FileInputStream fInStream = loadFilesystemConfiguration();
+
+        Type listType = new TypeToken<List<Buzzing>>() {
+        }.getType();
+
+
+        try {
+            buzzingResult = mGSon.fromJson(new InputStreamReader(fInStream), listType);
+
+        } catch (Exception e) {
+            Log.d("APP", "Exception" + e);
+        }
+
+        return buzzingResult;
+    }
+
+    private void saveFilesystemConfiguration(BufferedReader input) {
+
+        ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream();
+        int readByte = 0;
+
+        while (true) {
+            try {
+                readByte = input.read();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            if (readByte == -1) {
+                break;
+            }
+            byteOutStream.write(readByte);
+        }
+        try {
+            byteOutStream.flush();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        try {
+            input.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        try {
+            byteOutStream.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        byte[] response = byteOutStream.toByteArray();
+
+        File cacheDir = mContext.getCacheDir();
+        File jsonFile = new File(cacheDir, FILE_NAME);
+        FileOutputStream outStream = null;
+        try {
+            outStream = new FileOutputStream(jsonFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < response.length; i++) {
+            try {
+                outStream.write(response[i]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private FileInputStream loadFilesystemConfiguration() {
+        FileInputStream fInStream = null;
+        try {
+            File jsonFile = new File(mContext.getCacheDir(), FILE_NAME);
+            Log.d("APP", "Exist::" + jsonFile.exists());
+            fInStream = new FileInputStream(jsonFile);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return fInStream;
     }
 }

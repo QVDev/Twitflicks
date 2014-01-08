@@ -23,9 +23,11 @@ public class CacheTest extends ActivityInstrumentationTestCase2<MainView> {
     }
 
     public void testCacheExists() {
-        NetworkHelper networkHelper = new NetworkHelper();
+        NetworkHelper networkHelper = new NetworkHelper(getInstrumentation().getTargetContext());
         List<Buzzing> buzzingList = networkHelper.getCachedBuzzing();
 
-        assertNull("Cache does not exists", buzzingList);
+        if (buzzingList != null) {
+            assertTrue("Cache does not exists", buzzingList.size() > 0);
+        }
     }
 }
