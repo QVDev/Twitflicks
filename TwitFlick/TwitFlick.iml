@@ -74,6 +74,7 @@
     <orderEntry type="library" exported="" name="picasso-1.1.1" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="YouTubeAndroidPlayerApi" level="project" />
+    <orderEntry type="library" exported="" name="android-agent-3.239.0" level="project" />
   </component>
 </module>
 

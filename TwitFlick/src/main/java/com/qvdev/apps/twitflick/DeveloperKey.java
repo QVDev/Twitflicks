@@ -11,6 +11,7 @@ public class DeveloperKey {
      * <a href="https://code.google.com/apis/console/">Google APIs Console</a> to
      * register a new developer key.
      */
-    public static final String DEVELOPER_KEY = "Replace with own valid api key";
+    public static final String DEVELOPER_KEY_YOUTUBE = "Add here youtube api key";
+    public static final String DEVELOPER_KEY_RELIC = "add here new relic api key";
 
 }

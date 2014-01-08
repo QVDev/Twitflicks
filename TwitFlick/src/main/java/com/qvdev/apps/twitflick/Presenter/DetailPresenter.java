@@ -70,7 +70,7 @@ public class DetailPresenter implements YouTubeThumbnailView.OnInitializedListen
     }
 
     public void trailerClicked() {
-        Intent intent = YouTubeStandalonePlayer.createVideoIntent(mDetailView.getActivity(), DeveloperKey.DEVELOPER_KEY, mCurrentVideoId);
+        Intent intent = YouTubeStandalonePlayer.createVideoIntent(mDetailView.getActivity(), DeveloperKey.DEVELOPER_KEY_YOUTUBE, mCurrentVideoId);
         mDetailView.startActivity(intent);
     }
 

@@ -5,9 +5,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
 import com.qvdev.apps.twitflick.Adapters.SectionsPagerAdapter;
+import com.qvdev.apps.twitflick.DeveloperKey;
 import com.qvdev.apps.twitflick.Presenter.MainPresenter;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
+import com.newrelic.agent.android.NewRelic;
 
 import java.util.Observer;
 
@@ -21,6 +23,10 @@ public class MainView extends FragmentActivity implements onBuzzingListItemClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        NewRelic.withApplicationToken(
+                DeveloperKey.DEVELOPER_KEY_RELIC
+        ).start(this.getApplication());
 
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
 

@@ -65,7 +65,7 @@ public class DetailView extends YouTubePlayerSupportFragment implements Observer
 
         mVideoThumbnail = (YouTubeThumbnailView) getActivity().findViewById(R.id.video_thumbnail);
         mVideoThumbnail.setOnClickListener(this);
-        mVideoThumbnail.initialize(DeveloperKey.DEVELOPER_KEY, mDetailPresenter);
+        mVideoThumbnail.initialize(DeveloperKey.DEVELOPER_KEY_YOUTUBE, mDetailPresenter);
 
         if (thumb != null) {
             mVideoThumbnail.setImageDrawable(thumb);
