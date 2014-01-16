@@ -15,7 +15,6 @@
         android:indeterminateDuration="750"
         android:interpolator="@android:anim/accelerate_interpolator"
         android:progressDrawable="@drawable/progress_bar"
-        android:background="@android:color/transparent"
         android:indeterminateDrawable="@drawable/progress_bar_interminate"
         />
 

@@ -33,7 +33,6 @@ public class BuzzingListAdapter extends BaseAdapter {
     public static class BuzzingViewHolder {
 
         public TextView itemName;
-        public TextView itemSummary;
         public TextView itemTweetsToday;
         public TextView itemTweetsTotal;
         public ImageButton itemPoster;
@@ -77,7 +76,6 @@ public class BuzzingListAdapter extends BaseAdapter {
                 viewHolder.itemName = (TextView) v.findViewById(R.id.buzzingName);
                 viewHolder.itemPoster = (ImageButton) v.findViewById(R.id.buzzingPoster);
                 setButtonOnClickListener(viewHolder.itemPoster);
-                viewHolder.itemSummary = (TextView) v.findViewById(R.id.buzzingSummary);
                 viewHolder.itemTweetsToday = (TextView) v.findViewById(R.id.buzzingToday);
                 viewHolder.itemTweetsTotal = (TextView) v.findViewById(R.id.buzzingTotal);
                 viewHolder.popupMenuButton = (ImageButton) v.findViewById(R.id.buzzing_popup_menu);
@@ -96,8 +94,6 @@ public class BuzzingListAdapter extends BaseAdapter {
 
             if (viewHolder.itemName != null)
                 viewHolder.itemName.setText(mBuzzingModel.getBuzzing().get(position).getName());
-            if (viewHolder.itemSummary != null)
-                viewHolder.itemSummary.setText(mBuzzingModel.getBuzzing().get(position).getShortSynposis());
             if (viewHolder.itemTweetsToday != null)
                 viewHolder.itemTweetsToday.setText(v.getContext().getString(R.string.tweets_today, (int) mBuzzingModel.getBuzzing().get(position).getTweetsToday()));
             if (viewHolder.itemTweetsTotal != null)

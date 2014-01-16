@@ -18,11 +18,12 @@
             android:id="@+id/video_thumbnail"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:padding="10dp"
             android:src="@android:drawable/ic_media_play"
             android:adjustViewBounds="true"
             android:layout_gravity="center"
             android:scaleType="centerInside"
-            android:background="@android:color/black"/>
+            android:background="@drawable/poster_back"/>
 
         <TextView
             android:id="@+id/detail_summary"
@@ -31,6 +32,7 @@
             android:padding="10dp"
             android:layout_margin="10dp"
             android:text="@string/detail_no_movie_summary"
+            android:background="@drawable/poster_back"
             android:textColor="@android:color/black" />
 
     </LinearLayout>

@@ -3,8 +3,11 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
         <item name="android:popupMenuStyle">@style/BuzzingPopupMenu</item>
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/gray</item>
 
+        <item name="android:textSize">12sp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textAppearanceSmallPopupMenu">@style/BuzzingPopupMenuTextAppearance
         </item>
         <item name="android:textAppearanceLargePopupMenu">@style/BuzzingPopupMenuTextAppearance
@@ -17,12 +20,9 @@
     </style>
 
     <style name="BuzzingPopupMenu" parent="android:Widget.DeviceDefault.Light.ListPopupWindow">
-
+        <item name="android:popupBackground">@color/gray</item>
     </style>
 
-    <style name="BuzzingPopupMenuTextAppearance" parent="android:TextAppearance.DeviceDefault.Medium">
-
-    </style>
-
+    <style name="BuzzingPopupMenuTextAppearance" parent="android:TextAppearance.DeviceDefault.Medium"></style>
 
 </resources>

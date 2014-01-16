@@ -2,14 +2,16 @@ package com.qvdev.apps.twitflick.View;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 
+import com.newrelic.agent.android.NewRelic;
 import com.qvdev.apps.twitflick.Adapters.SectionsPagerAdapter;
 import com.qvdev.apps.twitflick.DeveloperKey;
 import com.qvdev.apps.twitflick.Presenter.MainPresenter;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
-import com.newrelic.agent.android.NewRelic;
 
 import java.util.Observer;
 
@@ -17,7 +19,8 @@ public class MainView extends FragmentActivity implements onBuzzingListItemClick
 
     private ViewPager mViewPager;
     private MainPresenter mMainPresenter;
-
+    private PagerTitleStrip mPagerTitleStrip;
+    private PagerAdapter mSectionsPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +31,20 @@ public class MainView extends FragmentActivity implements onBuzzingListItemClick
                 DeveloperKey.DEVELOPER_KEY_RELIC
         ).start(this.getApplication());
 
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
 
+        initViews();
+
+        mMainPresenter = new MainPresenter(this);
+    }
+
+    private void initViews() {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(2);
 
-        mMainPresenter = new MainPresenter(this);
+        mPagerTitleStrip = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
+        mPagerTitleStrip.setTextColor(getResources().getColor(R.color.white));
     }
 
     @Override

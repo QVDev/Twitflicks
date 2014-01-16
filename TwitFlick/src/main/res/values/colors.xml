@@ -5,4 +5,9 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
+
+    <!-- HUD COLORS-->
+    <color name="gray">#2D2D2D</color>
+    <color name="green">#37BEC5</color>
+
 </resources>
