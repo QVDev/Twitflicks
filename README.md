@@ -36,6 +36,7 @@ Screenshots
 ![Alt text](/screens/device-2014-01-07-205708.png "Phone pull to refresh indicator")
 ![Alt text](/screens/device-2014-01-07-205730.png "Phone with new popup menu")
 ![Alt text](/screens/device-2014-01-07-205858.png "Tablet popupmenu activated")
+![Alt text](/screens/device-2014-01-16-221133.png "New layout for buzzing")
 
 
 
