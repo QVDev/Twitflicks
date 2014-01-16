@@ -5,7 +5,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.qvdev.apps.twitflick.View.MainView;
 
 /**
- * Created by dirkwilmer on 7/3/13.
+ * Created by QVDev on 7/3/13.
  */
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainView> {
 

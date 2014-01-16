@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.Observer;
 
 /**
- * Created by dirkwilmer on 7/26/13.
+ * Created by QVDev on 7/26/13.
  */
 public class MainPresenter implements onBuzzingDetailsResultListener {
 

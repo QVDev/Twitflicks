@@ -17,7 +17,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * Created by dirkwilmer on 11/24/13.
+ * Created by QVDev on 11/24/13.
  */
 public class TweetsView extends Fragment implements Observer {
 

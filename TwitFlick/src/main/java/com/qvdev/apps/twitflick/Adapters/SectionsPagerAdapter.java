@@ -14,7 +14,7 @@ import com.qvdev.apps.twitflick.View.TweetsView;
 import java.util.Locale;
 
 /**
- * Created by dirkwilmer on 7/29/13.
+ * Created by QVDev on 7/29/13.
  */
 
 /**

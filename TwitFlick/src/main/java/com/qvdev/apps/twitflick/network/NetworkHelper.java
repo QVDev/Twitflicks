@@ -35,7 +35,7 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * Created by dirkwilmer on 7/26/13.
+ * Created by QVDev on 7/26/13.
  */
 public class NetworkHelper {
 

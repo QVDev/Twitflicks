@@ -9,7 +9,7 @@ import android.graphics.Rect;
 import com.squareup.picasso.Transformation;
 
 /**
- * Created by dirkwilmer on 10/6/13.
+ * Created by QVDev on 10/6/13.
  */
 public class HudRectTransformation implements Transformation {
     @Override

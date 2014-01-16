@@ -13,7 +13,7 @@ import com.qvdev.apps.twitflick.R;
 import com.qvdev.libs.Refreshbar.RefreshBar;
 
 /**
- * Created by dirkwilmer on 7/29/13.
+ * Created by QVDev on 7/29/13.
  */
 
 public class BuzzingView extends Fragment {

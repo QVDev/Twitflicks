@@ -6,7 +6,7 @@ import com.qvdev.apps.twitflick.api.models.BuzzingDetail;
 import java.util.List;
 
 /**
- * Created by dirkwilmer on 9/25/13.
+ * Created by QVDev on 9/25/13.
  */
 public interface onBuzzingDetailsResultListener {
 

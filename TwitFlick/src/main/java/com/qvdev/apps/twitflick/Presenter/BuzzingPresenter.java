@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by dirkwilmer on 7/29/13.
+ * Created by QVDev on 7/29/13.
  */
 public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemClickedListener, RefreshBarListener, PopupMenu.OnMenuItemClickListener {
 

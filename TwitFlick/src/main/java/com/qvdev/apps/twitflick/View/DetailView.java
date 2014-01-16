@@ -19,7 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * Created by dirkwilmer on 7/29/13.
+ * Created by QVDev on 7/29/13.
  */
 
 public class DetailView extends YouTubePlayerSupportFragment implements Observer, View.OnClickListener {

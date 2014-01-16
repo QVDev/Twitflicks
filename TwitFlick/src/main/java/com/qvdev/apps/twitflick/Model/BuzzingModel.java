@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Observable;
 
 /**
- * Created by dirkwilmer on 7/29/13.
+ * Created by QVDev on 7/29/13.
  */
 public class BuzzingModel extends Observable{
 

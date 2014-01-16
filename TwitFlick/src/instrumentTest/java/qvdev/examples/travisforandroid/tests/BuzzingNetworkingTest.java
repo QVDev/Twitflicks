@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * Created by dirkwilmer on 7/3/13.
+ * Created by QVDev on 7/3/13.
  */
 public class BuzzingNetworkingTest extends ActivityInstrumentationTestCase2<MainView> implements onBuzzingResultListener {
 

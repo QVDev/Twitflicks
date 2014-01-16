@@ -1,7 +1,7 @@
 package com.qvdev.apps.twitflick.api.models;
 
 /**
- * Created by dirkwilmer on 12/21/13.
+ * Created by QVDev on 12/21/13.
  */
 public class Tweet {
     private float Weight;

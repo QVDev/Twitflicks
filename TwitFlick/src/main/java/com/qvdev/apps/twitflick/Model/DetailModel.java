@@ -5,7 +5,7 @@ import com.qvdev.apps.twitflick.api.models.BuzzingDetail;
 import java.util.Observable;
 
 /**
- * Created by dirkwilmer on 7/29/13.
+ * Created by QVDev on 7/29/13.
  */
 public class DetailModel extends Observable {
 

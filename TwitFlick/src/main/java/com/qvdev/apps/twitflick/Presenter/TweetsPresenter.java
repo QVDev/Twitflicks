@@ -9,7 +9,7 @@ import com.qvdev.apps.twitflick.View.TweetsView;
 import com.qvdev.apps.twitflick.api.models.BuzzingDetail;
 
 /**
- * Created by dirkwilmer on 11/25/13.
+ * Created by QVDev on 11/25/13.
  */
 public class TweetsPresenter implements View.OnClickListener {
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by dirkwilmer on 11/25/13.
+ * Created by QVDev on 11/25/13.
  */
 public class TweetsModel {
 
