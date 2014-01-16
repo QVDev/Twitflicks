@@ -1,5 +1,6 @@
 package com.qvdev.apps.twitflick.Presenter;
 
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.qvdev.apps.twitflick.Model.MainModel;
@@ -18,12 +19,23 @@ import java.util.Observer;
  */
 public class MainPresenter implements onBuzzingDetailsResultListener {
 
+    public final static String EXTRA_MESSAGE_ID = "movie_id";
+
     private final MainView mMainView;
     private MainModel mMainModel;
 
     public MainPresenter(MainView view) {
         mMainView = view;
         mMainModel = new MainModel();
+
+        Intent intent = mMainView.getIntent();
+
+        if (intent != null) {
+            float id = intent.getFloatExtra(EXTRA_MESSAGE_ID, 0);
+            if (id != -1) {
+                getBuzzingDetails(id);
+            }
+        }
     }
 
     public void addBuzzingDetailsObserver(Observer observer) {

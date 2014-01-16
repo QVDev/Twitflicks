@@ -1,13 +1,12 @@
 package com.qvdev.apps.twitflick.View;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.newrelic.agent.android.NewRelic;
 import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
+import com.qvdev.apps.twitflick.DeveloperKey;
 import com.qvdev.apps.twitflick.Presenter.BuzzingPresenter;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.libs.Refreshbar.RefreshBar;
@@ -16,7 +15,7 @@ import com.qvdev.libs.Refreshbar.RefreshBar;
  * Created by QVDev on 7/29/13.
  */
 
-public class BuzzingView extends Fragment {
+public class BuzzingView extends Activity {
     private BuzzingPresenter mBuzzingPresenter;
     private GridView mBuzzingGridView;
     private RefreshBar mRefreshBar;
@@ -25,25 +24,12 @@ public class BuzzingView extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_main_buzzing, container, false);
-        initLayouts(rootView);
-        return rootView;
-    }
+        NewRelic.withApplicationToken(DeveloperKey.DEVELOPER_KEY_RELIC).start(this.getApplication());
 
-    private void initLayouts(View rootView) {
-        mBuzzingGridView = (GridView) rootView.findViewById(R.id.GridLayoutBuzzing);
-        mRefreshBar = (RefreshBar) rootView.findViewById(R.id.refresh_bar);
-    }
+        setContentView(R.layout.fragment_main_buzzing);
+        initLayouts();
 
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         if (mBuzzingPresenter == null) {
             mBuzzingPresenter = new BuzzingPresenter(this);
         } else {
@@ -51,6 +37,12 @@ public class BuzzingView extends Fragment {
         }
 
         initRefreshBar();
+    }
+
+
+    private void initLayouts() {
+        mBuzzingGridView = (GridView) findViewById(R.id.GridLayoutBuzzing);
+        mRefreshBar = (RefreshBar) findViewById(R.id.refresh_bar);
     }
 
     private void initRefreshBar() {

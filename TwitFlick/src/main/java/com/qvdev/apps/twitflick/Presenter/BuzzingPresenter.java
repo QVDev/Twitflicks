@@ -10,9 +10,9 @@ import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.View.BuzzingView;
+import com.qvdev.apps.twitflick.View.MainView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
 import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
-import com.qvdev.apps.twitflick.listeners.onBuzzingListItemClicked;
 import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
 import com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.libs.Refreshbar.RefreshBarListener;
@@ -27,13 +27,9 @@ import java.util.List;
  */
 public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemClickedListener, RefreshBarListener, PopupMenu.OnMenuItemClickListener {
 
-    private static final String FORCE_FULLSCREEN = "force_fullscreen";
-
     private BuzzingView mBuzzingView;
     private BuzzingModel mBuzzingModel;
     private BuzzingListAdapter mBuzzingListAdapter;
-
-    private onBuzzingListItemClicked mExternalItemListener;
 
     public BuzzingPresenter(BuzzingView buzzingView) {
         mBuzzingView = buzzingView;
@@ -44,7 +40,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     }
 
     private void getCachedBuzzing() {
-        NetworkHelper networkHelper = new NetworkHelper(mBuzzingView.getActivity());
+        NetworkHelper networkHelper = new NetworkHelper(mBuzzingView);
         List<Buzzing> buzzingList = networkHelper.getCachedBuzzing();
 
         if (buzzingList != null) {
@@ -61,21 +57,18 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     }
 
     private void init() {
-        mBuzzingListAdapter = new BuzzingListAdapter(mBuzzingView.getActivity(), R.layout.buzzing_list_circle_item, mBuzzingModel);
+        mBuzzingListAdapter = new BuzzingListAdapter(mBuzzingView, R.layout.buzzing_list_circle_item, mBuzzingModel);
         mBuzzingListAdapter.setOnBuzzingItemClicked(this);
         mBuzzingView.setAdapter(mBuzzingListAdapter);
-
-        mExternalItemListener = (onBuzzingListItemClicked) mBuzzingView.getActivity();
     }
 
     public void resumed() {
         mBuzzingView.setAdapter(mBuzzingListAdapter);
-        mExternalItemListener = (onBuzzingListItemClicked) mBuzzingView.getActivity();
     }
 
 
     private void getBuzzing() {
-        NetworkHelper networkHelper = new NetworkHelper(mBuzzingView.getActivity());
+        NetworkHelper networkHelper = new NetworkHelper(mBuzzingView);
         URL url = null;
         try {
             url = new URL("" + mBuzzingView.getString(R.string.base_url) + mBuzzingView.getString(R.string.api_url) + mBuzzingView.getString(R.string.buzzing_url) + mBuzzingView.getString(R.string.buzzing_retrieve_count) + mBuzzingView.getString(R.string.buzzing_retrieve_limit));
@@ -90,7 +83,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     public void onPopupClicked(View view, int position) {
         mBuzzingModel.popupPosition = position;
 
-        PopupMenu popup = new PopupMenu(mBuzzingView.getActivity(), view);
+        PopupMenu popup = new PopupMenu(mBuzzingView, view);
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.buzzing_actions);
         popup.show();
@@ -126,7 +119,10 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     @Override
     public void onViewClicked(int position) {
         Buzzing buzzing = mBuzzingModel.getBuzzing().get(position);
-        mExternalItemListener.onBuzzingItemSelected(buzzing.getID());
+
+        Intent intent = new Intent(mBuzzingView, MainView.class);
+        intent.putExtra(MainPresenter.EXTRA_MESSAGE_ID, buzzing.getID());
+        mBuzzingView.startActivity(intent);
     }
 
     private void share(String shareText) {
@@ -145,7 +141,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
 
     @Override
     public void onBuzzingRetrievalFailed() {
-        Toast.makeText(mBuzzingView.getActivity(), "Failed to fetch data", Toast.LENGTH_LONG).show();
+        Toast.makeText(mBuzzingView, "Failed to fetch data", Toast.LENGTH_LONG).show();
         mBuzzingView.onRefreshFinished();
     }
 

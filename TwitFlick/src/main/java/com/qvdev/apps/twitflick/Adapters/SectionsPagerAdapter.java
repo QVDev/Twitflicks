@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
 import com.qvdev.apps.twitflick.R;
-import com.qvdev.apps.twitflick.View.BuzzingView;
 import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.View.MainView;
 import com.qvdev.apps.twitflick.View.TweetsView;
@@ -26,7 +25,6 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
     private final MainView mMainView;
     private DetailView mDetailView;
-    private BuzzingView mBuzzingView;
     private TweetsView mTweetsView;
 
     public SectionsPagerAdapter(FragmentManager fm, MainView mainView) {
@@ -43,17 +41,12 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                if (fragment instanceof BuzzingView) {
-                    mBuzzingView = (BuzzingView) fragment;
-                }
-                break;
-            case 1:
                 if (fragment instanceof DetailView) {
                     mDetailView = (DetailView) fragment;
                     mMainView.addBuzzingDetailsObserver(mDetailView);
                 }
                 break;
-            case 2:
+            case 1:
                 if (fragment instanceof TweetsView) {
                     mTweetsView = (TweetsView) fragment;
                     mMainView.addBuzzingDetailsObserver(mTweetsView);
@@ -70,10 +63,8 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return createBuzzingView();
-            case 1:
                 return createDetailView();
-            case 2:
+            case 1:
                 return createTweetsView();
             default:
                 return null;
@@ -88,13 +79,6 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         return mDetailView;
     }
 
-    private BuzzingView createBuzzingView() {
-        if (mBuzzingView == null) {
-            mBuzzingView = new BuzzingView();
-        }
-        return mBuzzingView;
-    }
-
     private TweetsView createTweetsView() {
         if (mTweetsView == null) {
             mTweetsView = new TweetsView();
@@ -105,7 +89,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -113,10 +97,8 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         Locale l = Locale.getDefault();
         switch (position) {
             case 0:
-                return mMainView.getString(R.string.title_section1).toUpperCase(l);
-            case 1:
                 return mMainView.getString(R.string.title_section2).toUpperCase(l);
-            case 2:
+            case 1:
                 return mMainView.getString(R.string.title_section3).toUpperCase(l);
             default:
                 return null;
