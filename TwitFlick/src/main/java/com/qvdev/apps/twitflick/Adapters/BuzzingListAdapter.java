@@ -75,7 +75,6 @@ public class BuzzingListAdapter extends BaseAdapter {
 
                 viewHolder.itemName = (TextView) v.findViewById(R.id.buzzingName);
                 viewHolder.itemPoster = (ImageButton) v.findViewById(R.id.buzzingPoster);
-                setButtonOnClickListener(viewHolder.itemPoster);
                 viewHolder.itemTweetsToday = (TextView) v.findViewById(R.id.buzzingToday);
                 viewHolder.itemTweetsTotal = (TextView) v.findViewById(R.id.buzzingTotal);
                 viewHolder.popupMenuButton = (ImageButton) v.findViewById(R.id.buzzing_popup_menu);
