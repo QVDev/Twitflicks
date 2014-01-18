@@ -52,6 +52,11 @@ public class NetworkHelper {
         mContext = context;
     }
 
+    public void getCachedBuzzing(onBuzzingResultListener listener) {
+        mBuzzingResultListener = listener;
+        cachedBuzzing.execute("");
+    }
+
     public void getBuzzing(onBuzzingResultListener listener, URL[] urls) {
         mBuzzingResultListener = listener;
         buzzing.execute(urls);
@@ -62,7 +67,24 @@ public class NetworkHelper {
         buzzingDetails.execute(urls);
     }
 
-    public AsyncTask<URL, Integer, List<Buzzing>> buzzing = new AsyncTask<URL, Integer, List<Buzzing>>() {
+    private AsyncTask<String, Integer, List<Buzzing>> cachedBuzzing = new AsyncTask<String, Integer, List<Buzzing>>() {
+
+        @Override
+        protected List<Buzzing> doInBackground(String... urls) {
+            return getCachedBuzzing();
+        }
+
+        @Override
+        protected void onPostExecute(List<Buzzing> result) {
+            if (result != null) {
+                mBuzzingResultListener.onBuzzingRetrievalSuccess(result);
+            } else {
+                mBuzzingResultListener.onBuzzingCachedRetrievalFailed();
+            }
+        }
+    };
+
+    private AsyncTask<URL, Integer, List<Buzzing>> buzzing = new AsyncTask<URL, Integer, List<Buzzing>>() {
 
         public List<Buzzing> getJson(URL url) {
 
@@ -125,7 +147,7 @@ public class NetworkHelper {
     };
 
 
-    public AsyncTask<URL, Integer, BuzzingDetail> buzzingDetails = new AsyncTask<URL, Integer, BuzzingDetail>() {
+    private AsyncTask<URL, Integer, BuzzingDetail> buzzingDetails = new AsyncTask<URL, Integer, BuzzingDetail>() {
 
         public BuzzingDetail getJson(URL url) {
 
@@ -179,7 +201,8 @@ public class NetworkHelper {
         }
     };
 
-    public List<Buzzing> getCachedBuzzing() {
+
+    private List<Buzzing> getCachedBuzzing() {
 
         List<Buzzing> buzzingResult = null;
 

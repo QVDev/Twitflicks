@@ -77,8 +77,11 @@ public class RefreshBar extends ProgressBar implements OnTouchListener, OnRefres
     }
 
 
-    private void startLoadingProgress() {
-        mRefreshListener.onStartLoadingContent();
+    public void startLoadingProgress() {
+        if (mRefreshListener != null) {
+            mRefreshListener.onStartLoadingContent();
+        }
+
         isLoading = true;
         setIndeterminate(isLoading);
     }

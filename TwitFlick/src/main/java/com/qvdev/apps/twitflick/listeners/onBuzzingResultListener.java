@@ -11,5 +11,7 @@ public interface onBuzzingResultListener {
 
     public void onBuzzingRetrievalSuccess(List<Buzzing> buzzingList);
 
+    public void onBuzzingCachedRetrievalFailed();
+
     public void onBuzzingRetrievalFailed();
 }

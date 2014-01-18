@@ -36,30 +36,20 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
         mBuzzingModel = new BuzzingModel();
 
         init();
-        getCachedBuzzing();
-    }
-
-    private void getCachedBuzzing() {
-        NetworkHelper networkHelper = new NetworkHelper(mBuzzingView);
-        List<Buzzing> buzzingList = networkHelper.getCachedBuzzing();
-
-        if (buzzingList != null) {
-            onBuzzingRetrievalSuccess(buzzingList);
-        } else {
-            Buzzing buzzer = new Buzzing();
-            buzzer.setName("Pull to fetch data");
-
-            buzzingList = new ArrayList<Buzzing>();
-            buzzingList.add(buzzer);
-
-            refresh(buzzingList);
-        }
     }
 
     private void init() {
         mBuzzingListAdapter = new BuzzingListAdapter(mBuzzingView, R.layout.buzzing_list_circle_item, mBuzzingModel);
         mBuzzingListAdapter.setOnBuzzingItemClicked(this);
         mBuzzingView.setAdapter(mBuzzingListAdapter);
+
+        getCachedBuzzing();
+    }
+
+    private void getCachedBuzzing() {
+        mBuzzingView.showProgress();
+        NetworkHelper networkHelper = new NetworkHelper(mBuzzingView);
+        networkHelper.getCachedBuzzing(this);
     }
 
     public void resumed() {
@@ -140,14 +130,32 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     }
 
     @Override
+    public void onBuzzingCachedRetrievalFailed() {
+        setPullToRefresh();
+    }
+
+    private void setPullToRefresh() {
+        if (mBuzzingListAdapter.getCount() == 0) {
+            Buzzing buzzer = new Buzzing();
+            buzzer.setName("Pull to fetch data");
+
+            ArrayList<Buzzing> buzzingList = new ArrayList<Buzzing>();
+            buzzingList.add(buzzer);
+
+            refresh(buzzingList);
+        }
+
+        mBuzzingView.onRefreshFinished();
+    }
+
+    @Override
     public void onBuzzingRetrievalFailed() {
         Toast.makeText(mBuzzingView, "Failed to fetch data", Toast.LENGTH_LONG).show();
         mBuzzingView.onRefreshFinished();
     }
 
     public void refresh(List<Buzzing> result) {
-        mBuzzingModel.getBuzzing().clear();
-        mBuzzingModel.getBuzzing().addAll(result);
+        mBuzzingModel.setBuzzing(result);
         mBuzzingListAdapter.notifyDataSetChanged();
     }
 

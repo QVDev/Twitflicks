@@ -24,10 +24,9 @@ public class BuzzingView extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_main_buzzing);
 
         NewRelic.withApplicationToken(DeveloperKey.DEVELOPER_KEY_RELIC).start(this.getApplication());
-
-        setContentView(R.layout.fragment_main_buzzing);
         initLayouts();
 
         if (mBuzzingPresenter == null) {
@@ -56,5 +55,9 @@ public class BuzzingView extends Activity {
 
     public void onRefreshFinished() {
         mRefreshBar.onRefreshFinished();
+    }
+
+    public void showProgress() {
+        mRefreshBar.startLoadingProgress();
     }
 }
