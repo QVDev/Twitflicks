@@ -2,7 +2,7 @@ package qvdev.examples.travisforandroid.tests;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.qvdev.apps.twitflick.View.MainView;
+import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
 import com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
@@ -14,12 +14,12 @@ import java.util.List;
 /**
  * Created by QVDev on 7/3/13.
  */
-public class BuzzingNetworkingTest extends ActivityInstrumentationTestCase2<MainView> implements onBuzzingResultListener {
+public class BuzzingNetworkingTest extends ActivityInstrumentationTestCase2<DetailView> implements onBuzzingResultListener {
 
     private NetworkHelper mNetworkerHelper;
 
     public BuzzingNetworkingTest() {
-        super(MainView.class);
+        super(DetailView.class);
     }
 
     @Override

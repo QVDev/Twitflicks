@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
 import com.qvdev.apps.twitflick.R;
+import com.qvdev.apps.twitflick.View.MovieView;
 import com.qvdev.apps.twitflick.View.DetailView;
-import com.qvdev.apps.twitflick.View.MainView;
 import com.qvdev.apps.twitflick.View.TweetsView;
 
 import java.util.Locale;
@@ -23,15 +23,15 @@ import java.util.Locale;
 public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
 
-    private final MainView mMainView;
-    private DetailView mDetailView;
+    private final DetailView mDetailView;
+    private MovieView mMovieView;
     private TweetsView mTweetsView;
 
-    public SectionsPagerAdapter(FragmentManager fm, MainView mainView) {
+    public SectionsPagerAdapter(FragmentManager fm, DetailView detailView) {
         super(fm);
 
 
-        mMainView = mainView;
+        mDetailView = detailView;
     }
 
     @Override
@@ -41,15 +41,15 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                if (fragment instanceof DetailView) {
-                    mDetailView = (DetailView) fragment;
-                    mMainView.addBuzzingDetailsObserver(mDetailView);
+                if (fragment instanceof MovieView) {
+                    mMovieView = (MovieView) fragment;
+                    mDetailView.addBuzzingDetailsObserver(mMovieView);
                 }
                 break;
             case 1:
                 if (fragment instanceof TweetsView) {
                     mTweetsView = (TweetsView) fragment;
-                    mMainView.addBuzzingDetailsObserver(mTweetsView);
+                    mDetailView.addBuzzingDetailsObserver(mTweetsView);
                 }
                 break;
             default:
@@ -71,18 +71,18 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    private DetailView createDetailView() {
-        if (mDetailView == null) {
-            mDetailView = new DetailView();
-            mMainView.addBuzzingDetailsObserver(mDetailView);
+    private MovieView createDetailView() {
+        if (mMovieView == null) {
+            mMovieView = new MovieView();
+            mDetailView.addBuzzingDetailsObserver(mMovieView);
         }
-        return mDetailView;
+        return mMovieView;
     }
 
     private TweetsView createTweetsView() {
         if (mTweetsView == null) {
             mTweetsView = new TweetsView();
-            mMainView.addBuzzingDetailsObserver(mTweetsView);
+            mDetailView.addBuzzingDetailsObserver(mTweetsView);
         }
         return mTweetsView;
     }
@@ -97,9 +97,9 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         Locale l = Locale.getDefault();
         switch (position) {
             case 0:
-                return mMainView.getString(R.string.title_section2).toUpperCase(l);
+                return mDetailView.getString(R.string.title_section2).toUpperCase(l);
             case 1:
-                return mMainView.getString(R.string.title_section3).toUpperCase(l);
+                return mDetailView.getString(R.string.title_section3).toUpperCase(l);
             default:
                 return null;
         }

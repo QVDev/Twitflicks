@@ -1,82 +1,70 @@
 package com.qvdev.apps.twitflick.Presenter;
 
 import android.content.Intent;
-import android.util.Log;
+import android.widget.Toast;
 
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubeStandalonePlayer;
-import com.google.android.youtube.player.YouTubeThumbnailLoader;
-import com.google.android.youtube.player.YouTubeThumbnailView;
-import com.qvdev.apps.twitflick.DeveloperKey;
+import com.qvdev.apps.twitflick.Model.DetailModel;
+import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.api.models.BuzzingDetail;
+import com.qvdev.apps.twitflick.listeners.onBuzzingDetailsResultListener;
+import com.qvdev.apps.twitflick.network.NetworkHelper;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Observer;
 
 /**
- * Created by QVDev on 7/29/13.
+ * Created by QVDev on 7/26/13.
  */
-public class DetailPresenter implements YouTubeThumbnailView.OnInitializedListener, YouTubeThumbnailLoader.OnThumbnailLoadedListener {
+public class DetailPresenter implements onBuzzingDetailsResultListener {
 
-    private String mCurrentVideoId;
-    private DetailView mDetailView;
-    private YouTubeThumbnailLoader mThumbnailLoader;
-    private BuzzingDetail mBuzzingDetails;
+    public final static String EXTRA_MESSAGE_ID = "movie_id";
 
-    public DetailPresenter(DetailView detailView) {
-        mDetailView = detailView;
-    }
+    private final DetailView mDetailView;
+    private DetailModel mDetailModel;
 
+    public DetailPresenter(DetailView view) {
+        mDetailView = view;
+        mDetailModel = new DetailModel();
 
-    private String getVideoId(String trailerUrl) {
-        int startIndex = trailerUrl.lastIndexOf("=") + 1;
-        return trailerUrl.substring(startIndex, trailerUrl.length());
-    }
+        Intent intent = mDetailView.getIntent();
 
-
-    private void loadVideoThumbnail(String trailerId) {
-        if (trailerId != null && mThumbnailLoader != null) {
-            mCurrentVideoId = getVideoId(trailerId);
-            try {
-                mThumbnailLoader.setVideo(mCurrentVideoId);
-            } catch (IllegalStateException e) {
-                Log.d("App", "Youtube failure https://code.google.com/p/gdata-issues/issues/detail?id=5431" + e.getMessage());
+        if (intent != null) {
+            float id = intent.getFloatExtra(EXTRA_MESSAGE_ID, 0);
+            if (id != -1) {
+                getBuzzingDetails(id);
             }
         }
     }
 
-    public void update(BuzzingDetail buzzingDetails) {
-        mBuzzingDetails = buzzingDetails;
-
-        mDetailView.setMovieInfo(mBuzzingDetails);
-        loadVideoThumbnail(mBuzzingDetails.getMovie().getTrailer());
+    public void addBuzzingDetailsObserver(Observer observer) {
+        mDetailModel.addObserver(observer);
     }
 
-    @Override
-    public void onInitializationSuccess(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader youTubeThumbnailLoader) {
-        mThumbnailLoader = youTubeThumbnailLoader;
-        mThumbnailLoader.setOnThumbnailLoadedListener(this);
-    }
-
-    @Override
-    public void onInitializationFailure(YouTubeThumbnailView youTubeThumbnailView, YouTubeInitializationResult youTubeInitializationResult) {
-    }
-
-    @Override
-    public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) {
-    }
-
-    @Override
-    public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView, YouTubeThumbnailLoader.ErrorReason errorReason) {
-        youTubeThumbnailView.setImageResource(android.R.drawable.ic_media_play);
-    }
-
-    public void trailerClicked() {
-        Intent intent = YouTubeStandalonePlayer.createVideoIntent(mDetailView.getActivity(), DeveloperKey.DEVELOPER_KEY_YOUTUBE, mCurrentVideoId);
-        mDetailView.startActivity(intent);
-    }
-
-    public void resumed() {
-        if (mBuzzingDetails != null) {
-            update(mBuzzingDetails);
+    public void getBuzzingDetails(float movieId) {
+        if ((int) movieId == 0 || (mDetailModel.getBuzzingDetail() != null && mDetailModel.getBuzzingDetail().getID() == movieId)) {
+            return;
         }
+
+        NetworkHelper networkHelper = new NetworkHelper(mDetailView);
+        URL url = null;
+        try {
+
+            url = new URL("" + mDetailView.getString(R.string.base_url) + mDetailView.getString(R.string.api_url) + mDetailView.getString(R.string.buzzing_detail_url) + (int) movieId + "&count=150");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        networkHelper.getBuzzingDetails(this, new URL[]{url});
+    }
+
+    @Override
+    public void onBuzzingRetrievalSuccess(BuzzingDetail buzzingDetail) {
+        mDetailModel.setBuzzingDetail(buzzingDetail);
+    }
+
+    @Override
+    public void onBuzzingRetrievalFailed() {
+        Toast.makeText(mDetailView, "Failed to fetch data", Toast.LENGTH_LONG).show();
     }
 }

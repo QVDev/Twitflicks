@@ -5,7 +5,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
 import com.qvdev.apps.twitflick.R;
-import com.qvdev.apps.twitflick.View.MainView;
+import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
 
 import java.util.ArrayList;
@@ -14,14 +14,14 @@ import java.util.List;
 /**
  * Created by QVDev on 7/3/13.
  */
-public class BuzzingAdapterTest extends ActivityInstrumentationTestCase2<MainView> {
+public class BuzzingAdapterTest extends ActivityInstrumentationTestCase2<DetailView> {
 
     BuzzingModel mBuzzingModel;
     List<Buzzing> mBuzzingData;
     BuzzingListAdapter mBuzzingAdapter;
 
     public BuzzingAdapterTest() {
-        super(MainView.class);
+        super(DetailView.class);
     }
 
     @Override

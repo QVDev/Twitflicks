@@ -10,7 +10,7 @@ import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
 import com.qvdev.apps.twitflick.R;
 import com.qvdev.apps.twitflick.View.BuzzingView;
-import com.qvdev.apps.twitflick.View.MainView;
+import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
 import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
 import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
@@ -120,8 +120,8 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     public void onViewClicked(int position) {
         Buzzing buzzing = mBuzzingModel.getBuzzing().get(position);
 
-        Intent intent = new Intent(mBuzzingView, MainView.class);
-        intent.putExtra(MainPresenter.EXTRA_MESSAGE_ID, buzzing.getID());
+        Intent intent = new Intent(mBuzzingView, DetailView.class);
+        intent.putExtra(DetailPresenter.EXTRA_MESSAGE_ID, buzzing.getID());
         mBuzzingView.startActivity(intent);
     }
 
