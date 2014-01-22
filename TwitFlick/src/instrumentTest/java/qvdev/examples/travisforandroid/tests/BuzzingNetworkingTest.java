@@ -4,11 +4,12 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
-import com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
+import com.qvdev.apps.twitflick.network.NetworkHelper;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ import java.util.List;
 public class BuzzingNetworkingTest extends ActivityInstrumentationTestCase2<DetailView> implements onBuzzingResultListener {
 
     private NetworkHelper mNetworkerHelper;
+    List<Buzzing> mBuzzingList = new ArrayList<Buzzing>();
 
     public BuzzingNetworkingTest() {
         super(DetailView.class);
@@ -48,7 +50,12 @@ public class BuzzingNetworkingTest extends ActivityInstrumentationTestCase2<Deta
     }
 
     @Override
-    public void onBuzzingRetrievalFailed() {
+    public void onBuzzingCachedRetrievalFailed() {
+        assertFalse("Cache does not exists", mBuzzingList.size() > 0);
+    }
 
+    @Override
+    public void onBuzzingRetrievalFailed() {
+        assertFalse("Cache does not exists", mBuzzingList.size() > 0);
     }
 }
