@@ -15,7 +15,7 @@ import com.qvdev.libs.Refreshbar.RefreshBar;
  * Created by QVDev on 7/29/13.
  */
 
-public class BuzzingView extends Activity {
+public class BuzzingView extends Activity{
     private BuzzingPresenter mBuzzingPresenter;
     private GridView mBuzzingGridView;
     private RefreshBar mRefreshBar;
