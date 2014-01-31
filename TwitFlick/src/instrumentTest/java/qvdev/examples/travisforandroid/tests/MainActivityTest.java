@@ -2,15 +2,15 @@ package qvdev.examples.travisforandroid.tests;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.qvdev.apps.twitflick.View.DetailView;
+import com.qvdev.apps.twitflick.View.BuzzingView;
 
 /**
  * Created by QVDev on 7/3/13.
  */
-public class MainActivityTest extends ActivityInstrumentationTestCase2<DetailView> {
+public class MainActivityTest extends ActivityInstrumentationTestCase2<BuzzingView> {
 
     public MainActivityTest() {
-        super(DetailView.class);
+        super(BuzzingView.class);
     }
 
     @Override

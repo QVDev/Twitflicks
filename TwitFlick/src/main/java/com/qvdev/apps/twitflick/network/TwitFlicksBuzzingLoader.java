@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class TwitFlicksBuzzingLoader extends AsyncTaskLoader<List<Buzzing>> {
 
-    private static final String FILE_NAME = "buzzing.json";
+    public static final String FILE_NAME = "buzzing.json";
 
     private Gson mGSon = new Gson();
     List<Buzzing> mBuzzing;

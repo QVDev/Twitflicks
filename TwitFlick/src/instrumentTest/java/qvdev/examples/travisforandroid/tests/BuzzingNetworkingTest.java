@@ -1,24 +1,24 @@
 package qvdev.examples.travisforandroid.tests;
 
+import android.app.LoaderManager;
+import android.content.Loader;
+import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
-import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
-import com.qvdev.apps.twitflick.network.NetworkHelper;
+import com.qvdev.apps.twitflick.network.TwitFlicksBuzzingLoader;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
+import junit.framework.Assert;
+
 import java.util.List;
 
 /**
  * Created by QVDev on 7/3/13.
  */
-public class BuzzingNetworkingTest extends ActivityInstrumentationTestCase2<DetailView> implements onBuzzingResultListener {
+public class BuzzingNetworkingTest extends ActivityInstrumentationTestCase2<DetailView> implements LoaderManager.LoaderCallbacks<List<Buzzing>> {
 
-    private NetworkHelper mNetworkerHelper;
-    List<Buzzing> mBuzzingList = new ArrayList<Buzzing>();
+    private static final int LOADER_BUZZING_ID = 0;
 
     public BuzzingNetworkingTest() {
         super(DetailView.class);
@@ -27,35 +27,30 @@ public class BuzzingNetworkingTest extends ActivityInstrumentationTestCase2<Deta
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        mNetworkerHelper = new NetworkHelper(getInstrumentation().getTargetContext());
     }
 
     public void testActivityCreation() {
-
         assertNotNull("Activity is null, check creating of activity", getActivity());
+    }
 
-        try {
-            URL url = new URL("http://www.twitflicks.com/api/buzzing.json?count=1");
-            mNetworkerHelper.getBuzzing(this, new URL[]{url});
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+    public void testGetBuzzing() {
+        getActivity().getLoaderManager().initLoader(LOADER_BUZZING_ID, null, this);
+    }
 
 
+    @Override
+    public Loader<List<Buzzing>> onCreateLoader(int i, Bundle bundle) {
+        String url = "http://www.twitflicks.com/api/buzzing.json?count=1";
+        return new TwitFlicksBuzzingLoader(getActivity(), url);
     }
 
     @Override
-    public void onBuzzingRetrievalSuccess(List<Buzzing> buzzingList) {
-        assertNotNull(buzzingList);
+    public void onLoadFinished(Loader<List<Buzzing>> listLoader, List<Buzzing> buzzings) {
+        Assert.assertNotNull(buzzings);
     }
 
     @Override
-    public void onBuzzingCachedRetrievalFailed() {
-        assertFalse("Cache does not exists", mBuzzingList.size() > 0);
-    }
+    public void onLoaderReset(Loader<List<Buzzing>> listLoader) {
 
-    @Override
-    public void onBuzzingRetrievalFailed() {
-        assertFalse("Cache does not exists", mBuzzingList.size() > 0);
     }
 }

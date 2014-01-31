@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
@@ -17,12 +16,10 @@ import com.qvdev.apps.twitflick.View.BuzzingView;
 import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
 import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
-import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
-import com.qvdev.apps.twitflick.network.NetworkHelper;
 import com.qvdev.apps.twitflick.network.TwitFlicksBuzzingLoader;
+import com.qvdev.apps.twitflick.network.TwitFlicksCachedBuzzingLoader;
 import com.qvdev.libs.Refreshbar.RefreshBarListener;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +27,10 @@ import java.util.List;
 /**
  * Created by QVDev on 7/29/13.
  */
-public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemClickedListener, RefreshBarListener, PopupMenu.OnMenuItemClickListener, LoaderManager.LoaderCallbacks<List<Buzzing>> {
+public class BuzzingPresenter implements onBuzzingItemClickedListener, RefreshBarListener, PopupMenu.OnMenuItemClickListener, LoaderManager.LoaderCallbacks<List<Buzzing>> {
+
+    private static final int LOADER_BUZZING_ID = 0;
+    private static final int LOADER_CAHCED_BUZZING_ID = 1;
 
     private BuzzingView mBuzzingView;
     private BuzzingModel mBuzzingModel;
@@ -48,14 +48,12 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
         mBuzzingListAdapter.setOnBuzzingItemClicked(this);
         mBuzzingView.setAdapter(mBuzzingListAdapter);
 
-//        getCachedBuzzing();
-        mBuzzingView.getLoaderManager().initLoader(0, null, this);
+        getCachedBuzzing();
     }
 
     private void getCachedBuzzing() {
         mBuzzingView.showProgress();
-        NetworkHelper networkHelper = new NetworkHelper(mBuzzingView);
-        networkHelper.getCachedBuzzing(this);
+        mBuzzingView.getLoaderManager().initLoader(LOADER_CAHCED_BUZZING_ID, null, this);
     }
 
     public void resumed() {
@@ -64,14 +62,7 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
 
 
     private void getBuzzing() {
-        NetworkHelper networkHelper = new NetworkHelper(mBuzzingView);
-        URL url = null;
-        try {
-            url = new URL("" + mBuzzingView.getString(R.string.base_url) + mBuzzingView.getString(R.string.api_url) + mBuzzingView.getString(R.string.buzzing_url) + mBuzzingView.getString(R.string.buzzing_retrieve_count) + mBuzzingView.getString(R.string.buzzing_retrieve_limit));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        networkHelper.getBuzzing(this, new URL[]{url});
+        mBuzzingView.getLoaderManager().initLoader(LOADER_BUZZING_ID, null, this);
     }
 
 
@@ -129,16 +120,6 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
         mBuzzingView.startActivity(Intent.createChooser(sendIntent, mBuzzingView.getResources().getText(R.string.send_to)));
     }
 
-    @Override
-    public void onBuzzingRetrievalSuccess(List<Buzzing> buzzingList) {
-        refresh(buzzingList);
-        mBuzzingView.onRefreshFinished();
-    }
-
-    @Override
-    public void onBuzzingCachedRetrievalFailed() {
-        setPullToRefresh();
-    }
 
     private void setPullToRefresh() {
         if (mBuzzingListAdapter.getCount() == 0) {
@@ -150,19 +131,12 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
 
             refresh(buzzingList);
         }
-
-        mBuzzingView.onRefreshFinished();
-    }
-
-    @Override
-    public void onBuzzingRetrievalFailed() {
-        Toast.makeText(mBuzzingView, "Failed to fetch data", Toast.LENGTH_LONG).show();
-        mBuzzingView.onRefreshFinished();
     }
 
     public void refresh(List<Buzzing> result) {
         mBuzzingModel.setBuzzing(result);
         mBuzzingListAdapter.notifyDataSetChanged();
+        mBuzzingView.onRefreshFinished();
     }
 
     @Override
@@ -171,21 +145,26 @@ public class BuzzingPresenter implements onBuzzingResultListener, onBuzzingItemC
     }
 
     @Override
-    public Loader<List<Buzzing>> onCreateLoader(int i, Bundle bundle) {
-        String url = "";
-        try {
-            url = new URL("" + mBuzzingView.getString(R.string.base_url) + mBuzzingView.getString(R.string.api_url) + mBuzzingView.getString(R.string.buzzing_url) + mBuzzingView.getString(R.string.buzzing_retrieve_count) + mBuzzingView.getString(R.string.buzzing_retrieve_limit)).toString();
-        } catch (Exception e) {
-            Log.d("", "");
-        }
+    public Loader<List<Buzzing>> onCreateLoader(int id, Bundle bundle) {
 
-        return new TwitFlicksBuzzingLoader(mBuzzingView, url);
+        switch (id) {
+            case LOADER_BUZZING_ID:
+                String url = "";
+                try {
+                    url = new URL("" + mBuzzingView.getString(R.string.base_url) + mBuzzingView.getString(R.string.api_url) + mBuzzingView.getString(R.string.buzzing_url) + mBuzzingView.getString(R.string.buzzing_retrieve_count) + mBuzzingView.getString(R.string.buzzing_retrieve_limit)).toString();
+                } catch (Exception e) {
+                    Log.d("", "");
+                }
+                return new TwitFlicksBuzzingLoader(mBuzzingView, url);
+            default:
+                return new TwitFlicksCachedBuzzingLoader(mBuzzingView);
+        }
     }
 
     @Override
     public void onLoadFinished(Loader<List<Buzzing>> listLoader, List<Buzzing> buzzings) {
-        mBuzzingModel.setBuzzing(buzzings);
-        mBuzzingListAdapter.notifyDataSetChanged();
+        refresh(buzzings);
+        setPullToRefresh();
     }
 
     @Override

@@ -1,21 +1,22 @@
 package qvdev.examples.travisforandroid.tests;
 
+import android.app.LoaderManager;
+import android.content.Loader;
+import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.qvdev.apps.twitflick.View.DetailView;
 import com.qvdev.apps.twitflick.api.models.Buzzing;
-import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
-import com.qvdev.apps.twitflick.network.NetworkHelper;
+import com.qvdev.apps.twitflick.network.TwitFlicksCachedBuzzingLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by QVDev on 7/3/13.
  */
-public class CacheTest extends ActivityInstrumentationTestCase2<DetailView> implements onBuzzingResultListener {
+public class CacheTest extends ActivityInstrumentationTestCase2<DetailView> implements LoaderManager.LoaderCallbacks<List<Buzzing>>{
 
-    List<Buzzing> mBuzzingList = new ArrayList<Buzzing>();
+    private static final int LOADER_CAHCED_BUZZING_ID = 1;
 
     public CacheTest() {
         super(DetailView.class);
@@ -27,22 +28,21 @@ public class CacheTest extends ActivityInstrumentationTestCase2<DetailView> impl
     }
 
     public void testCacheExists() {
-        NetworkHelper networkHelper = new NetworkHelper(getInstrumentation().getTargetContext());
-        networkHelper.getCachedBuzzing(this);
+        getActivity().getLoaderManager().initLoader(LOADER_CAHCED_BUZZING_ID, null, this);
     }
 
     @Override
-    public void onBuzzingRetrievalSuccess(List<Buzzing> buzzingList) {
-        assertTrue("Cache does not exists", buzzingList.size() > 0);
+    public Loader<List<Buzzing>> onCreateLoader(int i, Bundle bundle) {
+        return new TwitFlicksCachedBuzzingLoader(getActivity());
     }
 
     @Override
-    public void onBuzzingCachedRetrievalFailed() {
-        assertFalse("Cache does not exists", mBuzzingList.size() > 0);
+    public void onLoadFinished(Loader<List<Buzzing>> listLoader, List<Buzzing> buzzings) {
+        assertTrue("Cache exists", buzzings.size() > 0);
     }
 
     @Override
-    public void onBuzzingRetrievalFailed() {
-        assertFalse("Cache does not exists", mBuzzingList.size() > 0);
+    public void onLoaderReset(Loader<List<Buzzing>> listLoader) {
+
     }
 }
