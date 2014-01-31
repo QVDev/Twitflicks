@@ -134,8 +134,10 @@ public class BuzzingPresenter implements onBuzzingItemClickedListener, RefreshBa
     }
 
     public void refresh(List<Buzzing> result) {
-        mBuzzingModel.setBuzzing(result);
-        mBuzzingListAdapter.notifyDataSetChanged();
+        if (result != null) {
+            mBuzzingModel.setBuzzing(result);
+            mBuzzingListAdapter.notifyDataSetChanged();
+        }
         mBuzzingView.onRefreshFinished();
     }
 
