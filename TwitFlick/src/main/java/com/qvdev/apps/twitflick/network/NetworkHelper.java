@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.qvdev.apps.twitflick.api.models.BuzzingDetail;
 import com.qvdev.apps.twitflick.listeners.onBuzzingDetailsResultListener;
-import com.qvdev.apps.twitflick.listeners.onBuzzingResultListener;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -30,15 +29,11 @@ import java.net.URL;
  */
 public class NetworkHelper {
 
-    private static final String FILE_NAME = "json.json";
-
     private Gson mGSon = new Gson();
-    private onBuzzingResultListener mBuzzingResultListener = null;
     private onBuzzingDetailsResultListener mBuzzingDetailsResultListener;
-    private Context mContext;
 
     public NetworkHelper(Context context) {
-        mContext = context;
+
     }
 
     public void getBuzzingDetails(onBuzzingDetailsResultListener listener, URL[] urls) {
