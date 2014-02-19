@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        maven { url 'http://repo1.maven.org/maven2' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.deploygate:gradle:0.5'
+        classpath 'com.newrelic.agent.android:agent-gradle-plugin:3.264.0'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'android'
+apply plugin: 'deploygate'
+apply plugin: 'newrelic'
+
+dependencies {
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
+    compile 'com.newrelic.agent.android:android-agent:3.264.0'
+    compile 'com.android.support:support-v4:+'
+    compile 'com.google.code.gson:gson:2.2.+'
+    compile 'com.squareup.picasso:picasso:2.2.0'
+}
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion '18.0.1'
+
+    defaultConfig {
+        minSdkVersion 11
+        targetSdkVersion 18
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+
+deploygate {
+    userName = "QVDev"
+    token = "565d7404cf3b53fa7bb02d4a2ef6fbf1049b4089"
+
+    apks {
+        Release {
+            sourceFile = file("${project.buildDir}/apk/TwitFlick-debug-unaligned.apk")
+            message = "New Version release"
+        }
+    }
+}
