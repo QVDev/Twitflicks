@@ -29,7 +29,7 @@ dependencies {
 android {
     compileSdkVersion 17
     buildToolsVersion '17.0.0'
-
+    
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 18
@@ -39,9 +39,10 @@ android {
     }
 }
 
+
 deploygate {
-    userName "QVDev"
-    apkPath "${project.buildDir}/apk/TwitFlick-debug-unaligned.apk"
-    token "565d7404cf3b53fa7bb02d4a2ef6fbf1049b4089"
-    message "New Version release"
+    userName = "QVDev"
+    apkPath = "${project.buildDir}/apk/TwitFlick-debug-unaligned.apk"
+    token = "565d7404cf3b53fa7bb02d4a2ef6fbf1049b4089"
+    message = "New Version release"
 }
