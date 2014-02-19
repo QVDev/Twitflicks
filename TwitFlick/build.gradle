@@ -4,10 +4,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.lint:lint-api:22.4.0'
-		classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.7.+'
         classpath 'com.deploygate:gradle:0.2'
-        classpath 'com.newrelic.agent.android:agent-gradle-plugin:3.239.0'
+        classpath 'com.newrelic.agent.android:agent-gradle-plugin:3.264.0'
     }
 }
 
@@ -20,16 +19,16 @@ apply plugin: 'deploygate'
 apply plugin: 'newrelic'
 
 dependencies {
-    compile files('libs/android-support-v4.jar')
-    compile files('libs/gson-2.2.4.jar')
-    compile files('libs/picasso-1.1.1.jar')
     compile files('libs/YouTubeAndroidPlayerApi.jar')
-    compile 'com.newrelic.agent.android:android-agent:3.239.0'
+    compile 'com.newrelic.agent.android:android-agent:3.264.0'
+    compile 'com.android.support:support-v4:+'
+    compile 'com.google.code.gson:gson:2.2.+'
+    compile 'com.squareup.picasso:picasso:2.2.0'
 }
 
 android {
     compileSdkVersion 17
-    buildToolsVersion "17.0.0"
+    buildToolsVersion '17.0.0'
 
     defaultConfig {
         minSdkVersion 11
