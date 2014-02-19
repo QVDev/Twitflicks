@@ -17,7 +17,7 @@ build:
     - script:
         name: run gradle connectedCheck
         code: |
-          gradle -b TwitFlick/werckerbuild.gradle --project-cache-dir=$WERCKER_CACHE_DIR connectedCheck
+          gradle -b TwitFlick/werckerbuild.gradle --project-cache-dir=$WERCKER_CACHE_DIR connectedCheck --info --stacktrace
     - script:
         name: run gradle build
         code: |
