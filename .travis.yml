@@ -42,7 +42,7 @@ before_install:
   - emulator -avd test -no-skin -no-audio -no-window &
 
 install:
-  - gradle assemble
+  - gradle assemble --stacktrace
   - true
 
 
