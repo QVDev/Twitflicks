@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.SearchView;
 
 import com.qvdev.apps.twitflick.Adapters.BuzzingListAdapter;
 import com.qvdev.apps.twitflick.Model.BuzzingModel;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * Created by QVDev on 7/29/13.
  */
-public class BuzzingPresenter implements onBuzzingItemClickedListener, RefreshBarListener, PopupMenu.OnMenuItemClickListener, LoaderManager.LoaderCallbacks<List<Buzzing>> {
+public class BuzzingPresenter implements onBuzzingItemClickedListener, RefreshBarListener, PopupMenu.OnMenuItemClickListener, LoaderManager.LoaderCallbacks<List<Buzzing>>, SearchView.OnQueryTextListener, SearchView.OnCloseListener, View.OnFocusChangeListener {
 
     private static final int LOADER_BUZZING_ID = 0;
     private static final int LOADER_CAHCED_BUZZING_ID = 1;
@@ -172,5 +173,29 @@ public class BuzzingPresenter implements onBuzzingItemClickedListener, RefreshBa
     @Override
     public void onLoaderReset(Loader<List<Buzzing>> listLoader) {
         mBuzzingModel.setBuzzing(null);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        mBuzzingListAdapter.getFilter().filter(s);
+        return false;
+    }
+
+    @Override
+    public boolean onClose() {
+        mBuzzingListAdapter.getFilter().filter(null);
+        return false;
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        if (!b) {
+            mBuzzingListAdapter.getFilter().filter(null);
+        }
     }
 }

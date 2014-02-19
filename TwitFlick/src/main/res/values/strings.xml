@@ -28,5 +28,7 @@
     <string name="content_description_user_image">User Image</string>
     <string name="content_description_movie_image">Movie poster</string>
     <string name="content_description_buzzing_actions">Buzzing actions</string>
+    <string name="search_hint">Movie title</string>
+    <string name="search">Search</string>
 
 </resources>

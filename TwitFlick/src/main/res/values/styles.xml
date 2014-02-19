@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
+    <style name="AppTheme" parent="android:Theme.DeviceDefault.Light">
         <item name="android:popupMenuStyle">@style/BuzzingPopupMenu</item>
         <item name="android:windowBackground">@color/gray</item>
 

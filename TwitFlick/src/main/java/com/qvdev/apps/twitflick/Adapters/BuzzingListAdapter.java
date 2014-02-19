@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -16,7 +18,10 @@ import com.qvdev.apps.twitflick.listeners.onBuzzingItemClickedListener;
 import com.qvdev.apps.twitflick.utils.CircleTransform;
 import com.squareup.picasso.Picasso;
 
-public class BuzzingListAdapter extends BaseAdapter {
+import java.util.ArrayList;
+import java.util.List;
+
+public class BuzzingListAdapter extends BaseAdapter implements Filterable {
 
     public enum BuzzingType {
         PULL, BUZZING
@@ -26,6 +31,7 @@ public class BuzzingListAdapter extends BaseAdapter {
     private Context mContext;
     private int mResourceLayoutId;
     private onBuzzingItemClickedListener mListener;
+    private Filter mFilter;
 
     /**
      * Viewholder used for smooth scrolling
@@ -171,5 +177,51 @@ public class BuzzingListAdapter extends BaseAdapter {
     public long getItemId(int position) {
 
         return position;
+    }
+
+    @Override
+    public Filter getFilter() {
+
+        if (mFilter == null) {
+            mFilter = new Filter() {
+
+                List<Buzzing> allBuzzings = mBuzzingModel.getBuzzing();
+
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults results = new FilterResults();
+                    if (constraint == null || constraint.length() == 0) {
+                        results.values = allBuzzings;
+                        results.count = allBuzzings.size();
+                    } else {
+                        List<Buzzing> buzzingFilteredList = new ArrayList<Buzzing>();
+
+                        for (Buzzing buzzing : allBuzzings) {
+                            if (buzzing.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                                buzzingFilteredList.add(buzzing);
+                            }
+                        }
+
+                        results.values = buzzingFilteredList;
+                        results.count = buzzingFilteredList.size();
+
+                    }
+                    return results;
+                }
+
+                @Override
+                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
+//                    if (filterResults.count == 0)
+//                        notifyDataSetInvalidated();
+//                    else {
+                        mBuzzingModel.setBuzzing((List<Buzzing>) filterResults.values);
+                        notifyDataSetChanged();
+//                    }
+                }
+            };
+        }
+
+        return mFilter;
     }
 }
