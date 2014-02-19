@@ -12,13 +12,20 @@ build:
           echo $ANDROID_BUILD_TOOLS
           echo $ANDROID_UPDATE_FILTER
           echo $ANDROID_NDK_HOME
+    - android-sdk-update:
+        filter: sysimg-18
+    - setup-android-emulator:
+        target: android-18
+    - script:
+        name: run gradle connectedCheck
+             code: |
+               gradle -b TwitFlick/werckerbuild.gradle --project-cache-dir=$WERCKER_CACHE_DIR connectedCheck
     # A step that executes `gradle build` command
     - script:
         name: run gradle
         code: |
           gradle -b TwitFlick/werckerbuild.gradle --full-stacktrace -q --project-cache-dir=$WERCKER_CACHE_DIR build
-
-after-steps:
+  after-steps:
     # Use the build results
     - script:
         name: inspect build result
