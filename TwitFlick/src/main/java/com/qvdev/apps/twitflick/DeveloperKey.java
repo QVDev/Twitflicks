@@ -11,7 +11,7 @@ public class DeveloperKey {
      * <a href="https://code.google.com/apis/console/">Google APIs Console</a> to
      * register a new developer key.
      */
-    public static final String DEVELOPER_KEY_YOUTUBE = "add here new youtube api key";
-    public static final String DEVELOPER_KEY_RELIC = "add here new relic api key";
+    public static final String DEVELOPER_KEY_YOUTUBE = "AIzaSyDM8a4vVdCeqgZGNanPqZOD5qq264X9c_w";
+    public static final String DEVELOPER_KEY_RELIC = "AA9c9dc57c7cc3a88a1cf0b9afb19ad4d59131f05b";
 
 }
