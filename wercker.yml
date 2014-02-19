@@ -8,27 +8,24 @@ build:
         code: |
           gradle -v
           echo $ANDROID_HOME
-          echo $ANDROID_SDK_VERSION
           echo $ANDROID_BUILD_TOOLS
           echo $ANDROID_UPDATE_FILTER
-          echo $ANDROID_NDK_HOME
     - android-sdk-update:
         filter: sysimg-18
     - setup-android-emulator:
         target: android-18
     - script:
         name: run gradle connectedCheck
-             code: |
-               gradle -b TwitFlick/werckerbuild.gradle --project-cache-dir=$WERCKER_CACHE_DIR connectedCheck
-    # A step that executes `gradle build` command
-    - script:
-        name: run gradle
         code: |
-          gradle -b TwitFlick/werckerbuild.gradle --full-stacktrace -q --project-cache-dir=$WERCKER_CACHE_DIR build
+          gradle -b TwitFlick/werckerbuild.gradle --project-cache-dir=$WERCKER_CACHE_DIR connectedCheck
+    - script:
+        name: run gradle build
+        code: |
+          gradle -b TwitFlick/werckerbuild.gradle --full-stacktrace --project-cache-dir=$WERCKER_CACHE_DIR build
   after-steps:
     # Use the build results
     - script:
         name: inspect build result
         code: |
-          ls -la GettingStarted/build/apk/
+          ls -la TwitFlick/build/apk/
           cp TwitFlick/build/apk/*.apk $WERCKER_REPORT_ARTIFACTS_DIR
