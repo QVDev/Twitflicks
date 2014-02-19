@@ -1,6 +1,7 @@
 package qvdev.examples.travisforandroid.tests;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by QVDev on 7/3/13.
  */
-public class CacheTest extends ActivityInstrumentationTestCase2<DetailView> implements LoaderManager.LoaderCallbacks<List<Buzzing>>{
+public class CacheTest extends ActivityInstrumentationTestCase2<DetailView> implements LoaderManager.LoaderCallbacks<List<Buzzing>> {
 
     private static final int LOADER_CAHCED_BUZZING_ID = 1;
 
@@ -25,6 +26,9 @@ public class CacheTest extends ActivityInstrumentationTestCase2<DetailView> impl
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        Intent intent = new Intent();
+        intent.setClassName("com.qvdev.apps.twitflick.View", "DetailView");
+        setActivityIntent(intent);
     }
 
     public void testCacheExists() {
