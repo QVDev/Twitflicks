@@ -6,6 +6,7 @@ Android client for Twitflicks website more info see http://www.twitflicks.com/
 Building
 ===============
 [![Build Status](https://travis-ci.org/QVDev/TravisCIExample.png)](https://travis-ci.org/QVDev/Twitflicks)
+[![wercker status](https://app.wercker.com/status/e88d66f874e0dbce1e1a42c61636922d/m/ "wercker status")](https://app.wercker.com/project/bykey/e88d66f874e0dbce1e1a42c61636922d)
 
 DeployGate
 ===============
