@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.8.3'
+        classpath 'com.android.tools.build:gradle:0.7.+'
         classpath 'com.deploygate:gradle:0.5'
         classpath 'com.newrelic.agent.android:agent-gradle-plugin:3.264.0'
     }
@@ -42,7 +42,12 @@ android {
 
 deploygate {
     userName = "QVDev"
-    apkPath = "${project.buildDir}/apk/TwitFlick-debug-unaligned.apk"
     token = "565d7404cf3b53fa7bb02d4a2ef6fbf1049b4089"
-    message = "New Version release"
+
+    apks {
+        Release {
+            sourceFile = file("${project.buildDir}/apk/TwitFlick-debug-unaligned.apk")
+            message = "New Version release"
+        }
+    }
 }
