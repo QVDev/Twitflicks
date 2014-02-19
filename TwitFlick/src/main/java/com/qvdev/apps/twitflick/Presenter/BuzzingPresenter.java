@@ -167,7 +167,13 @@ public class BuzzingPresenter implements onBuzzingItemClickedListener, RefreshBa
     @Override
     public void onLoadFinished(Loader<List<Buzzing>> listLoader, List<Buzzing> buzzings) {
         refresh(buzzings);
-        setPullToRefresh();
+
+        if (mBuzzingView.getResources().getBoolean(R.bool.manualRefresh)) {
+            setPullToRefresh();
+        } else if (listLoader.getId() == LOADER_CAHCED_BUZZING_ID) {
+            mBuzzingView.showProgress();
+            getBuzzing();
+        }
     }
 
     @Override
