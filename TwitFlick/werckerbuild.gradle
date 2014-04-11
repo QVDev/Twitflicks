@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.9.+'
         classpath 'com.deploygate:gradle:0.5'
         classpath 'com.newrelic.agent.android:agent-gradle-plugin:3.264.0'
     }
@@ -28,7 +28,7 @@ dependencies {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '18.0.1'
+    buildToolsVersion '19.0.3'
 
     defaultConfig {
         minSdkVersion 11
