@@ -13,5 +13,6 @@ public class DeveloperKey {
      */
     public static final String DEVELOPER_KEY_YOUTUBE = "Add here new youtube api key";
     public static final String DEVELOPER_KEY_RELIC = "Add here new relic api key";
+    public static final String DEVELOPER_KEY_CHROME_CAST = "Add here new chrome cast api key";
 
 }
